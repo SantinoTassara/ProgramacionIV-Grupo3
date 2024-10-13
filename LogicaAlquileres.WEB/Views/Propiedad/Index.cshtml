@@ -1,4 +1,4 @@
-﻿@model IEnumerable<LogicaAlquileres.WEB.Models.PropiedadVM>
+﻿@model IEnumerable<LogicaAlquileres.Managers.ModelFactories.PropiedadCompleto>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,12 +13,59 @@
 <table class="table">
     <thead>
         <tr>
-            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdPropiedad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdUsuario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdAquiler)
+            </th>
+             <th>
+                @Html.DisplayNameFor(model => model.Direccion)
+            </th>
+             <th>
+                @Html.DisplayNameFor(model => model.Estado)
+            </th>
+             <th>
+                @Html.DisplayNameFor(model => model.Precio)
+            </th>
+             <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+             <th>
+                @Html.DisplayNameFor(model => model.Descripcion)
+            </th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model) { 
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdPropiedad)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.IdUsuario)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.IdAquiler)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.Direccion)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.Estado)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.Precio)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
