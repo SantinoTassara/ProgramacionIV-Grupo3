@@ -1,6 +1,9 @@
 ﻿using LogicaAlquileres.Managers.Entidades;
+using LogicaAlquileres.Managers.ModelFactories;
+using LogicaAlquileres.Managers.Repos;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,28 +12,77 @@ namespace LogicaAlquileres.Managers.Managers
 {
     public interface IPropiedadManager
     {
-        Propiedad CrearPropiedad();
+        IEnumerable<PropiedadCompleto> GetPropiedades();
+        Propiedad GetPropiedad(int IdPropiedad);
+        int CrearPropiedad(Propiedad propiedad, int IdUsuarioAlta);
+        bool ModificarPropiedad(int IdPropiedad, Propiedad propiedad, int IdUsuarioModificacion);
+        bool EliminarPropiedad(int IdPropiedad, int IdUsuarioBaja);
     }
+
+
     public class PropiedadManager : IPropiedadManager
     {
-        public PropiedadManager() { }
-
-        public Propiedad CrearPropiedad()
+        private IPropiedadRepository _repo;
+        public PropiedadManager(IPropiedadRepository repo)
         {
-            Propiedad propiedad = new Propiedad
-            {
-                IdPropiedad = 1,
-                IdUsuario = 1,
-                Direccion = "Avenida Rivadavia 1111",
-                Estado = "Disponible",
-                Precio = 1000,
-                Nombre = "Alquiler Dpto Av Rivadavia 1111 ",
-                Descripcion = "Dpto a 4 cuadras de obelisco y a 1 del subte A"
+            _repo = repo;
+        }
 
-            };
+       
+        public Propiedad GetPropiedad(int IdPropiedad)
+        {
+            var propiedad = _repo.GetPropiedad(IdPropiedad);
             return propiedad;
+
+
+        }
+
+        public IEnumerable<PropiedadCompleto> GetPropiedades()
+        {
+            return _repo.GetPropiedadesCompleto();
+        }
+
+        
+        public int CrearPropiedad(Propiedad propiedad, int IdUsuarioAlta)
+        {
+
+            propiedad.Descripcion = propiedad.Descripcion;
+            propiedad.Precio = propiedad.Precio;
+            propiedad.Estado = propiedad.Estado;
+            propiedad.Nombre = propiedad.Nombre;
+            propiedad.Direccion = propiedad.Direccion;
+           // propiedad.FechaAlta = DateTime.Now;//nos falta esto
+            var cont = _repo.CrearPropiedad(propiedad);
+
+            return cont;
+
+        }
+
+   
+        public bool EliminarPropiedad(int IdPropiedad, int IdUsuarioBaja)
+        {
+            return _repo.EliminarPropiedad(IdPropiedad, IdUsuarioBaja);
+
+        }
+
+       
+        public bool ModificarPropiedad(int IdPropiedad, Propiedad propiedad, int IdUsuarioModificacion)
+        {
+
+            //Obtengo lo que viene de la base de datos
+            var propiedadEnDb = _repo.GetPropiedad(IdPropiedad);
+
+            //En el objeto que viene de la base de datos, le "pego" los valores que me vienen del formulario
+            propiedadEnDb.Descripcion = propiedad.Descripcion;
+            propiedadEnDb.Precio = propiedad.Precio;
+            propiedadEnDb.Estado = propiedad.Estado;
+            propiedadEnDb.Nombre = propiedad.Nombre;
+            propiedadEnDb.Direccion = propiedad.Direccion;
+          //  propiedadEnDb.FechaModificacion = DateTime.Now; // nos falta esto
+            var cont = _repo.ModificarPropiedad(IdPropiedad, propiedadEnDb);
+
+            return cont;
         }
     }
-
 }
 
