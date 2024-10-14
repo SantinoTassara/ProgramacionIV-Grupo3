@@ -1,4 +1,4 @@
-﻿@model IEnumerable<LogicaAlquileres.WEB.Models.PropiedadVM>
+﻿@model IEnumerable<LogicaAlquileres.Managers.Entidades.Propiedad>
 
 @{
     ViewData["Title"] = "Index";
@@ -10,21 +10,48 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
 <table class="table">
     <thead>
         <tr>
-            <th></th>
+            <th>@Html.DisplayNameFor(model => model.First().IdPropiedad)</th>
+            <th>@Html.DisplayNameFor(model => model.First().IdUsuario)</th>
+            <th>@Html.DisplayNameFor(model => model.First().IdAquiler)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Direccion)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Estado)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Precio)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Nombre)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Descripcion)</th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
+        @if (!Model.Any())
+        {
+            <tr>
+                <td colspan="9">No hay propiedades disponibles.</td>
+            </tr>
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.IdPropiedad)</td>
+                    <td>@Html.DisplayFor(modelItem => item.IdUsuario)</td>
+                    <td>@Html.DisplayFor(modelItem => item.IdAquiler)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Direccion)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Estado)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Precio)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Descripcion)</td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.IdPropiedad }) |
+                        <!-- @Html.ActionLink("Details", "Details", new { id = item.IdPropiedad }) -->
+                        @Html.ActionLink("Delete", "Delete", new { id = item.IdPropiedad })
+                    </td>
+                </tr>
+            }
+        }
     </tbody>
 </table>

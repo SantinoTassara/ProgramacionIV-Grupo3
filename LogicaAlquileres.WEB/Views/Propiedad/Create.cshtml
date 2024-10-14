@@ -1,0 +1,60 @@
+﻿@model LogicaAlquileres.WEB.Models.PropiedadVM
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>Propiedad</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="model.Nombre"></label>
+                <input asp-for="model.Nombre" class="form-control" />
+                <span asp-validation-for="model.Nombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="model.Descripcion"></label>
+                <input asp-for="model.Descripcion" class="form-control" />
+                <span asp-validation-for="model.Descripcion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="model.Direccion"></label>
+                <input asp-for="model.Direccion" class="form-control" />
+                <span asp-validation-for="model.Direccion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="model.Estado"></label>
+                <select asp-for="model.Estado" class="form-control" asp-items="Model.ListaEstadosItem">
+                    <option value="">Seleccione un estado</option>
+                </select>
+                <span asp-validation-for="model.Estado" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="model.Precio"></label>
+                <input asp-for="model.Precio" class="form-control" type="number" step="0.01" />
+                <span asp-validation-for="model.Precio" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="model.IdUsuario" value="1" /> 
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
