@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LogicaAlquileres.Managers.Entidades.Auditoria;
 
 namespace LogicaAlquileres.Managers.Entidades
 {
-    public class Propiedad
+    public class Propiedad : Audit
     {
         public int IdPropiedad {  get; set; }
         public int IdUsuario { get; set; }

@@ -1,6 +1,6 @@
 ﻿using LogicaAlquileres.Managers.Entidades;
 using LogicaAlquileres.Managers.ModelFactories;
-using LogicaAlquileres.Managers.Repos;
+using LogicaAlquileres.Repos;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LogicaAlquileres.Managers.Managers
+namespace LogicaAlquileres.Managers
 {
     public interface IPropiedadManager
     {
@@ -19,7 +19,7 @@ namespace LogicaAlquileres.Managers.Managers
         bool EliminarPropiedad(int IdPropiedad, int IdUsuarioBaja);
     }
 
-
+    
     public class PropiedadManager : IPropiedadManager
     {
         private IPropiedadRepository _repo;
@@ -28,7 +28,7 @@ namespace LogicaAlquileres.Managers.Managers
             _repo = repo;
         }
 
-       
+        // Obtiene un PropiedadVM por Id 
         public Propiedad GetPropiedad(int IdPropiedad)
         {
             var propiedad = _repo.GetPropiedad(IdPropiedad);
@@ -36,13 +36,13 @@ namespace LogicaAlquileres.Managers.Managers
 
 
         }
-
+        // Obtiene una lista de Containers
         public IEnumerable<PropiedadCompleto> GetPropiedades()
         {
             return _repo.GetPropiedadesCompleto();
         }
 
-        
+        // Crea un Container en la Base de Datos
         public int CrearPropiedad(Propiedad propiedad, int IdUsuarioAlta)
         {
 
@@ -51,7 +51,7 @@ namespace LogicaAlquileres.Managers.Managers
             propiedad.Estado = propiedad.Estado;
             propiedad.Nombre = propiedad.Nombre;
             propiedad.Direccion = propiedad.Direccion;
-           // propiedad.FechaAlta = DateTime.Now;//nos falta esto
+            propiedad.CheckIn = DateTime.Now;
             var cont = _repo.CrearPropiedad(propiedad);
 
             return cont;

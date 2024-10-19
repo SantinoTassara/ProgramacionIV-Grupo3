@@ -1,7 +1,7 @@
-﻿using LogicaAlquileres.Managers.Entidades;
-using LogicaAlquileres.Managers.Managers;
+﻿using LogicaAlquileres.Managers;
+using LogicaAlquileres.Managers.Entidades;
+using LogicaAlquileres.Repos;
 using LogicaAlquileres.WEB.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -10,7 +10,7 @@ namespace LogicaAlquileres.WEB.Controllers
     public class PropiedadController : Controller
     {
         private IPropiedadManager _propiedadManager;
-        private IEstadoPropiedadRepository _estadoPropiedadRepository; //Falta crear este repositorio
+        private IEstadoPropiedadRepository _estadoPropiedadRepository;
 
         public PropiedadController (IPropiedadManager propiedadManager, IEstadoPropiedadRepository estadoPropiedadRepository)
         {

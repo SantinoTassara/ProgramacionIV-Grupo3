@@ -8,10 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Dapper;
 using LogicaAlquileres.Managers.Entidades;
 using LogicaAlquileres.Managers.ModelFactories;
 
-namespace LogicaAlquileres.Managers.Repos
+namespace LogicaAlquileres.Repos
 {
     public interface IPropiedadRepository
     {
@@ -26,45 +27,68 @@ namespace LogicaAlquileres.Managers.Repos
         bool EliminarPropiedad(int IdPropiedad, int IdUsuarioBaja);
     }
 
-    internal class PropiedadRepository
+    public class PropiedadRepository : IPropiedadRepository
     {
-        private string _connectionString;//falta base
+        private string _connectionString;
 
         public PropiedadRepository(string connectionString)
         {
             _connectionString = connectionString;
         }
-   
+
+        // Consulta a la base de datos por Id
         public Propiedad GetPropiedad(int IdPropiedad)
         {
             using (IDbConnection conn = new SqlConnection(_connectionString))
             {
-                Propiedad result = conn.QuerySingle<Propiedad>("Select * from Propiedad Where IdPropiedad = " + IdPropiedad.ToString());
+                Propiedad result = conn.QuerySingle<Propiedad>("Select * from propiedad Where id_propiedad = " + IdPropiedad.ToString());
                 return result;
             }
         }
 
+        // Consulta a la base de datos por la lista de las propiedades
+
+        public IEnumerable<Propiedad> GetPropiedades(bool? SoloActivos = true) 
+        {
+            using (IDbConnection conn = new SqlConnection(_connectionString)) 
+            {
+                string query = "Select * from propiedad";
+                /*if (SoloActivos == true)
+                    query += " where FechaBaja is null";//crear audit para esto*/
+                IEnumerable<Propiedad> results = conn.Query<Propiedad>(query);
+
+                return results;
+            }
+        }
+
+
+        // Obtiene una lista completa de las propiedades
         public IEnumerable<PropiedadCompleto> GetPropiedadesCompleto()
         {
             using (IDbConnection conn = new SqlConnection(_connectionString))
             {
                 IEnumerable<PropiedadCompleto> result =
-                    conn.Query<PropiedadCompleto>(@"select Container.*, EstadosContainer.Descripcion Estado 
+                    conn.Query<PropiedadCompleto>("Select * from propiedad"/*@"select propiedad.*, alquiler.Descripcion Estado 
                                                     from container 
                                                     left join EstadosContainer on Container.IdEstadoContainer = EstadosContainer.IdEstadoContainer
-                                                   where container.fechabaja is null");
+                                                   where container.fechabaja is null"*/);//modificar nuestra tabla o relacionar?
                 return result;
             }
 
         }
-       
+
+        // Crear nueva Propiedad en la base de datos
         public int CrearPropiedad(Propiedad propiedad)
         {
             using (IDbConnection db = new SqlConnection(_connectionString))
             {
-                string query = @"INSERT INTO Container (DescripcionContainer, IdEstadoContainer, IdUsuarioAlta, FechaAlta, IdUsuarioModificacion, FechaModificacion, IdUsuarioBaja, FechaBaja)  
+                string query = @"INSERT INTO propiedad (id_Usuario_Propiedad, id_Alquiler, direccion_Propiedad, estado_Propiedad, precio_Propiedad, nombre_Propiedad, descripcion_Propiedad)  
+                                VALUES ( @IdUsuario, @IdAquiler, @Direccion, @Estado, @Precio, @Nombre, @Descripcion);                    
+                                SELECT CAST(SCOPE_IDENTITY() AS INT) ";//modificado a nuestra tabla, probar..
+
+                    /*@"INSERT INTO propiedad (DescripcionContainer, IdEstadoContainer, IdUsuarioAlta, FechaAlta, IdUsuarioModificacion, FechaModificacion, IdUsuarioBaja, FechaBaja)  
                                 VALUES ( @DescripcionContainer, @IdEstadoContainer, @IdUsuarioAlta, @FechaAlta, @IdUsuarioModificacion, @FechaModificacion, @IdUsuarioBaja, @FechaBaja);                    
-                                SELECT CAST(SCOPE_IDENTITY() AS INT) ";//editar con nuestra tabla
+                                SELECT CAST(SCOPE_IDENTITY() AS INT) ";*/
 
                 propiedad.IdPropiedad = db.QuerySingle<int>(query, propiedad);
 
@@ -72,35 +96,41 @@ namespace LogicaAlquileres.Managers.Repos
             }
         }
 
+        // Modificar Propiedad en la base de Datos
         public bool ModificarPropiedad(int IdPropiedad, Propiedad propiedad)
         {
             using (IDbConnection db = new SqlConnection(_connectionString))
             {
                 string query = @"UPDATE 
-                                    Container 
+                                    propiedad 
                                 SET 
-                                    DescripcionContainer = @DescripcionContainer, 
-                                    IdEstadoContainer = @IdEstadoContainer, 
-                                    FechaModificacion = @FechaModificacion, 
-                                    IdUsuarioModificacion  = @IdUsuarioModificacion    
-                                    WHERE IdContainer = " + IdPropiedad.ToString();
+                                    id_Usuario_Propiedad = @IdUsuario, 
+                                    id_Alquiler = @IdAquiler, 
+                                    direccion_Propiedad = @Direccion, 
+                                    estado_Propiedad  = @Estado
+                                    precio_Propiedad = @Precio
+                                    nombre_Propiedad = @Nombre
+                                    descripcion_Propiedad = @Descripcion
+                                    WHERE id_propiedad = " + IdPropiedad.ToString();//modificado a nuestra base, probar..
                 //db.execute devuelve un entero que representa la cantidad de filas afectadas. 
                 //Se espera que se haya modificado solo un registro, por eso se lo compara con un 1.
                 return db.Execute(query, propiedad) == 1;
             }
         }
-  
+
+        // Eliminar de manera lógica una Propiedad de la base de datos
         public bool EliminarPropiedad(int IdPropiedad, int IdUsuarioBaja)
         {
             using (IDbConnection db = new SqlConnection(_connectionString))
             {
+                //hay que modificar la tabla para que elimine una propiedad con fecha de salida, checkout, osea mover el checkout a la tabla propiedad
                 string query = @"UPDATE 
-                                    Container 
+                                    alquiler  
                                 SET 
                                     
-                                    FechaBaja = '" + DateTime.Now.ToString("yyyyMMdd") + "'," +
-                                    " IdUsuarioBaja  = " + IdUsuarioBaja +
-                                "WHERE IdContainer = " + IdPropiedad.ToString();
+                                    checkOut_Alquiler = '" + DateTime.Now.ToString("yyyyMMdd") + "'," +
+                                    " id_Inquilino_alquiler  = " + IdUsuarioBaja +
+                                "WHERE id_propiedad = " + IdPropiedad.ToString();//modificado a nuestra base, probar..
                 //db.execute devuelve un entero que representa la cantidad de filas afectadas. 
                 //Se espera que se haya modificado solo un registro, por eso se lo compara con un 1.
                 return db.Execute(query) == 1;

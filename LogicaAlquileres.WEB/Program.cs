@@ -1,7 +1,23 @@
+using LogicaAlquileres.Managers;
+using LogicaAlquileres.Repos;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<IPropiedadManager, PropiedadManager>();
+
+builder.Services.AddScoped<IPropiedadRepository>(
+        _ => new PropiedadRepository(builder.Configuration["Db:ConnectionString"]));
+
+builder.Services.AddScoped<IEstadoPropiedadRepository>(
+        _ => new EstadoPropiedadRepository(builder.Configuration["Db:ConnectionString"]));
+
+/*builder.Services.AddScoped<IUsuarioRepository>(
+        _ => new UsuarioRepository(builder.Configuration["Db:ConnectionString"]));
+*/
+
 
 var app = builder.Build();
 
