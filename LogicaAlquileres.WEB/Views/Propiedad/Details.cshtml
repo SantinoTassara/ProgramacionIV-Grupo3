@@ -1,0 +1,85 @@
+﻿@model LogicaAlquileres.Managers.ModelFactories.PropiedadCompleto
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>PropiedadCompleto</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.id_Propiedad)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.id_Propiedad)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.id_Usuario_Propiedad)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.id_Usuario_Propiedad)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.id_Alquiler)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.id_Alquiler)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.direccion_Propiedad)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.direccion_Propiedad)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.estado_Propiedad)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.estado_Propiedad)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.precio_Propiedad)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.precio_Propiedad)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.nombre_Propiedad)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.nombre_Propiedad)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.descripcion_Propiedad)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.descripcion_Propiedad)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.fechaAlta_Propiedad)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.fechaAlta_Propiedad)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.fechaBaja_Propiedad)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.fechaBaja_Propiedad)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.fechaModificacion_Propiedad)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.fechaModificacion_Propiedad)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_Propiedad }) |
+    <a asp-action="Index">Back to List</a>
+</div>
