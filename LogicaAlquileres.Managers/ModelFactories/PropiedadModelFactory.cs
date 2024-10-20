@@ -16,6 +16,10 @@ namespace LogicaAlquileres.Managers.ModelFactories
         public string estado_Propiedad { get; set; }
         public decimal precio_Propiedad { get; set; }
         public string nombre_Propiedad { get; set; }
-        public string descripcion_Propiedad { get; set; } 
+        public string descripcion_Propiedad { get; set; }
+
+        public DateTime fechaAlta_Propiedad { get; set; }
+        public DateTime fechaBaja_Propiedad { get; set; }
+        public DateTime fechaModificacion_Propiedad { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using LogicaAlquileres.Managers;
 using LogicaAlquileres.Managers.Entidades;
+using LogicaAlquileres.Managers.ModelFactories;
 using LogicaAlquileres.Repos;
 using LogicaAlquileres.WEB.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -28,9 +29,30 @@ namespace LogicaAlquileres.WEB.Controllers
         // GET: PropiedadController/Details/5
         public ActionResult Details(int id)
         {
-            //esta vista no la cree todavia
+            try
+            {
+                var propiedad = _propiedadManager.GetPropiedad(id);
+                var propiedadCompleto = new PropiedadCompleto
+                {
+                    id_Propiedad = propiedad.id_Propiedad,
+                    id_Usuario_Propiedad = propiedad.id_Usuario_Propiedad,
+                    id_Alquiler = propiedad.id_Alquiler,
+                    direccion_Propiedad = propiedad.direccion_Propiedad,
+                    estado_Propiedad = propiedad.estado_Propiedad,
+                    precio_Propiedad = propiedad.precio_Propiedad,
+                    nombre_Propiedad = propiedad.nombre_Propiedad,
+                    descripcion_Propiedad = propiedad.descripcion_Propiedad,
+                    fechaAlta_Propiedad = propiedad.fechaAlta_Propiedad,
+                    fechaBaja_Propiedad = propiedad.fechaBaja_Propiedad,
+                    fechaModificacion_Propiedad = propiedad.fechaModificacion_Propiedad
+                };
 
-            return View();
+                return View(propiedadCompleto);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         // GET: PropiedadController/Create
@@ -75,11 +97,6 @@ namespace LogicaAlquileres.WEB.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            /* catch
-             {
-                 return View();
-             }
-            */
             catch (Exception ex)
             {
                 // Registra el error
@@ -89,27 +106,22 @@ namespace LogicaAlquileres.WEB.Controllers
             }
         }
 
-        
-
-        // GET: PropiedadController/Edit/5
         public ActionResult Edit(int id)
         {
             var propiedad = _propiedadManager.GetPropiedad(id);
-            var estados = _estadoPropiedadRepository.GetEstadosPropiedad();
-
-            PropiedadVM propiedadVM = new PropiedadVM();
-            propiedadVM.model = propiedad;
-            /*propiedadVM.ListaEstadosItem = new List<SelectListItem>();
-            foreach (var estado in estados)
+            if (propiedad == null)
             {
-                propiedadVM.ListaEstadosItem.Add(new SelectListItem { Value = estado.IdEstadoPropiedad.ToString(), Text = estado.Descripcion });//comprobar idEstado y descripcio
-
+                return NotFound(); 
             }
-            */
+
+            PropiedadVM propiedadVM = new PropiedadVM
+            {
+                model = propiedad
+            };
+
             return View(propiedadVM);
         }
-
-        // POST: PropiedadController/Edit/5
+      
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -118,74 +130,82 @@ namespace LogicaAlquileres.WEB.Controllers
             {
                 Propiedad propiedad = new Propiedad
                 {
-
-                    //hay q ver si entran todos, id alquiler e id usuario
-
-                    direccion_Propiedad = collection["model.Direccion"],
-                    estado_Propiedad = collection["model.Estado"],
-                    precio_Propiedad = decimal.Parse(collection["model.Precio"]),
-                    nombre_Propiedad = collection["model.Nombre"],
-                    descripcion_Propiedad = collection["model.Descripcion"]
-
+                    id_Propiedad = id,
+                    direccion_Propiedad = collection["model.direccion_Propiedad"],
+                    estado_Propiedad = collection["model.estado_Propiedad"],
+                    precio_Propiedad = decimal.Parse(collection["model.precio_Propiedad"]),
+                    nombre_Propiedad = collection["model.nombre_Propiedad"],
+                    descripcion_Propiedad = collection["model.descripcion_Propiedad"]
                 };
-                int idUsuario = GetUserIdentityId();
 
-                _propiedadManager.ModificarPropiedad(id, propiedad, idUsuario);
+                bool result = _propiedadManager.ModificarPropiedad(id, propiedad); // Verifica que la llamada a la modificación devuelva verdadero
 
-
-                return RedirectToAction(nameof(Index));
+                if (result)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    ModelState.AddModelError("", "No se pudo actualizar la propiedad.");
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                ModelState.AddModelError("", "Ocurrió un error: " + ex.Message);
             }
+
+            return View();
         }
 
-        // GET: PropiedadController/Delete/5
         public ActionResult Delete(int id)
         {
+            // Obtener la propiedad por ID
             var propiedad = _propiedadManager.GetPropiedad(id);
-            var estados = _estadoPropiedadRepository.GetEstadosPropiedad();
 
-            PropiedadVM propiedadVM = new PropiedadVM();
-            propiedadVM.model = propiedad;
-            /*propiedadVM.ListaEstadosItem = new List<SelectListItem>();
-            foreach (var estado in estados)
+            
+            if (propiedad == null)
             {
-                propiedadVM.ListaEstadosItem.Add(new SelectListItem { Value = estado.IdEstadoPropiedad.ToString(), Text = estado.Descripcion });//comprobar idEstado y descripcio
+                return NotFound(); 
             }
-            */
+
+            // Crear y devolver la vista con el modelo
+            PropiedadVM propiedadVM = new PropiedadVM { model = propiedad };
             return View(propiedadVM);
         }
-        
-        // POST: PropiedadController/Delete/5
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
         {
             try
             {
-                int idUsuario = GetUserIdentityId();
+                // Intentar eliminar la propiedad
+                bool eliminado = _propiedadManager.EliminarPropiedad(id);
 
-                _propiedadManager.EliminarPropiedad(id, idUsuario);
+                // Comprobar si se eliminó correctamente
+                if (!eliminado)
+                {
+                    ModelState.AddModelError("", "No se pudo eliminar la propiedad. Puede que no exista.");
+                    return View(); // Vuelve a mostrar la vista de eliminación
+                }
 
+                // Redirigir a la lista de propiedades si se elimina con éxito
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                ModelState.AddModelError("", $"Ocurrió un error: {ex.Message}");
+                return View(); // Vuelve a mostrar la vista de eliminación
             }
         }
-        
-        
-        
-        private int GetUserIdentityId()
-        {
-            //return int.Parse(HttpContext.User.Claims.First(x => x.Type == "usuarioPropiedad").Value);
-            var claim = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "usuarioPropiedad");
-            if (claim == null) throw new Exception("Claim 'usuarioPropiedad' no encontrado.");
-            return int.Parse(claim.Value);
-        }
-        
+
+        //private int GetUserIdentityId()
+        //{
+        //    //return int.Parse(HttpContext.User.Claims.First(x => x.Type == "usuarioPropiedad").Value);
+        //    var claim = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "usuarioPropiedad");
+        //    if (claim == null) throw new Exception("Claim 'usuarioPropiedad' no encontrado.");
+        //    return int.Parse(claim.Value);
+        //}
+
     }
 }

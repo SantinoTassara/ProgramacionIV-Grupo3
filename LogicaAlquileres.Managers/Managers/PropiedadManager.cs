@@ -15,8 +15,8 @@ namespace LogicaAlquileres.Managers
         IEnumerable<PropiedadCompleto> GetPropiedades();
         Propiedad GetPropiedad(int IdPropiedad);
         int CrearPropiedad(Propiedad propiedad/*, int IdUsuarioAlta*/);
-        bool ModificarPropiedad(int IdPropiedad, Propiedad propiedad, int IdUsuarioModificacion);
-        bool EliminarPropiedad(int IdPropiedad, int IdUsuarioBaja);
+        bool ModificarPropiedad(int IdPropiedad, Propiedad propiedad/*, int IdUsuarioModificacion*/);
+        bool EliminarPropiedad(int IdPropiedad/*, int IdUsuarioBaja*/);
     }
 
     
@@ -29,9 +29,9 @@ namespace LogicaAlquileres.Managers
         }
 
         // Obtiene un PropiedadVM por Id 
-        public Propiedad GetPropiedad(int IdPropiedad)
+        public Propiedad GetPropiedad(int id_Propiedad)
         {
-            var propiedad = _repo.GetPropiedad(IdPropiedad);
+            var propiedad = _repo.GetPropiedad(id_Propiedad);
             return propiedad;
 
 
@@ -59,15 +59,18 @@ namespace LogicaAlquileres.Managers
 
         }
 
-   
-        public bool EliminarPropiedad(int IdPropiedad, int IdUsuarioBaja)
-        {
-            return _repo.EliminarPropiedad(IdPropiedad, IdUsuarioBaja);
 
+        //public bool EliminarPropiedad(int IdPropiedad/*, int IdUsuarioBaja*/)
+        //{
+        //    return _repo.EliminarPropiedad(IdPropiedad/*, IdUsuarioBaja*/);
+
+        //}
+        public bool EliminarPropiedad(int IdPropiedad)
+        {
+            return _repo.EliminarPropiedad(IdPropiedad);
         }
 
-       
-        public bool ModificarPropiedad(int IdPropiedad, Propiedad propiedad, int IdUsuarioModificacion)
+        public bool ModificarPropiedad(int IdPropiedad, Propiedad propiedad/*, int IdUsuarioModificacion*/)
         {
 
             //Obtengo lo que viene de la base de datos
@@ -79,7 +82,7 @@ namespace LogicaAlquileres.Managers
             propiedadEnDb.estado_Propiedad = propiedad.estado_Propiedad;
             propiedadEnDb.nombre_Propiedad = propiedad.nombre_Propiedad;
             propiedadEnDb.direccion_Propiedad = propiedad.direccion_Propiedad;
-          //  propiedadEnDb.FechaModificacion = DateTime.Now; // nos falta esto
+            propiedadEnDb.fechaModificacion_Propiedad = DateTime.Now;
             var cont = _repo.ModificarPropiedad(IdPropiedad, propiedadEnDb);
 
             return cont;
