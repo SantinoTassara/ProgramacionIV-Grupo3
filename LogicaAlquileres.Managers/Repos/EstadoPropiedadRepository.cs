@@ -32,7 +32,7 @@ namespace LogicaAlquileres.Repos
         {
             using (IDbConnection conn = new SqlConnection(_connectionString)) 
             {
-                EstadoPropiedad result = conn.QuerySingle<EstadoPropiedad>("Select * from alquiler Where id_alquiler = " + IdEstadoPropiedad.ToString());
+                EstadoPropiedad result = conn.QuerySingle<EstadoPropiedad>("Select * from Grupo3.alquiler Where id_alquiler = " + IdEstadoPropiedad.ToString());
                 return result;
             }
         }
@@ -44,7 +44,7 @@ namespace LogicaAlquileres.Repos
             using (IDbConnection conn = new SqlConnection(_connectionString))
             {
                 //revisar querys segun tabla
-                string query = "Select * from alquiler";
+                string query = "Select * from Grupo3.alquiler";
                 /*if (SoloActivos == true)
                     query += "where FechaBaja is null";*/ 
                 //nuestra tabla alquiler no admite null en las fechas, hay q modificar eso

@@ -5,15 +5,60 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
+<h1>Cargar</h1>
 
-<h4>PropiedadVM</h4>
+<h4>Nueva Propiedad</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
             <div class="form-group">
+                <label asp-for="model.id_Usuario_Propiedad" class="control-label"></label>
+                <input asp-for="model.id_Usuario_Propiedad" class="form-control"/>
+                <span asp-validation-for="model.id_Usuario_Propiedad" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="model.id_Alquiler" class="control-label"></label>
+                <input asp-for="model.id_Alquiler" class="form-control"/>
+                <span asp-validation-for="model.id_Alquiler" class="text-danger"></span>
+            </div>
+
+
+            /////////////////////////
+            <div class="form-group">
+                <label asp-for="model.direccion_Propiedad" class="control-label"></label>
+                <input asp-for="model.direccion_Propiedad" class="form-control"/>
+                <span asp-validation-for="model.direccion_Propiedad" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="model.estado_Propiedad" class="control-label"></label>
+                <input asp-for="model.estado_Propiedad" class="form-control"/>
+                <span asp-validation-for="model.estado_Propiedad" class="text-danger"></span>
+           </div>
+
+            <div class="form-group">
+                <label asp-for="model.precio_Propiedad" class="control-label"></label>
+                <input asp-for="model.precio_Propiedad" class="form-control"/>
+                <span asp-validation-for="model.precio_Propiedad" class="text-danger"></span>
+           </div>
+
+            <div class="form-group">
+                <label asp-for="model.nombre_Propiedad" class="control-label"></label>
+                <input asp-for="model.nombre_Propiedad" class="form-control"/>
+                <span asp-validation-for="model.nombre_Propiedad" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="model.descripcion_Propiedad" class="control-label"></label>
+                <input asp-for="model.descripcion_Propiedad" class="form-control"/>
+                <span asp-validation-for="model.descripcion_Propiedad" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mt-3">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
@@ -21,7 +66,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Volver a la lista</a>
 </div>
 
 @section Scripts {

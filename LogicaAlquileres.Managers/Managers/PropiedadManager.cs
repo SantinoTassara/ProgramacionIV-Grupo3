@@ -14,7 +14,7 @@ namespace LogicaAlquileres.Managers
     {
         IEnumerable<PropiedadCompleto> GetPropiedades();
         Propiedad GetPropiedad(int IdPropiedad);
-        int CrearPropiedad(Propiedad propiedad, int IdUsuarioAlta);
+        int CrearPropiedad(Propiedad propiedad/*, int IdUsuarioAlta*/);
         bool ModificarPropiedad(int IdPropiedad, Propiedad propiedad, int IdUsuarioModificacion);
         bool EliminarPropiedad(int IdPropiedad, int IdUsuarioBaja);
     }
@@ -43,15 +43,16 @@ namespace LogicaAlquileres.Managers
         }
 
         // Crea un Container en la Base de Datos
-        public int CrearPropiedad(Propiedad propiedad, int IdUsuarioAlta)
+        public int CrearPropiedad(Propiedad propiedad/*, int IdUsuarioAlta*/)
         {
-
-            propiedad.Descripcion = propiedad.Descripcion;
-            propiedad.Precio = propiedad.Precio;
-            propiedad.Estado = propiedad.Estado;
-            propiedad.Nombre = propiedad.Nombre;
-            propiedad.Direccion = propiedad.Direccion;
-            propiedad.CheckIn = DateTime.Now;
+            //propiedad.id_Usuario_Propiedad = IdUsuarioAlta;
+            //propiedad.id_Alquiler = propiedad.id_Alquiler;
+            //propiedad.descripcion_Propiedad = propiedad.descripcion_Propiedad;
+           // propiedad.precio_Propiedad = propiedad.precio_Propiedad;
+           // propiedad.estado_Propiedad = propiedad.estado_Propiedad;
+           // propiedad.nombre_Propiedad = propiedad.nombre_Propiedad;
+           // propiedad.direccion_Propiedad = propiedad.direccion_Propiedad;
+            propiedad.fechaAlta_Propiedad = DateTime.Now;
             var cont = _repo.CrearPropiedad(propiedad);
 
             return cont;
@@ -73,11 +74,11 @@ namespace LogicaAlquileres.Managers
             var propiedadEnDb = _repo.GetPropiedad(IdPropiedad);
 
             //En el objeto que viene de la base de datos, le "pego" los valores que me vienen del formulario
-            propiedadEnDb.Descripcion = propiedad.Descripcion;
-            propiedadEnDb.Precio = propiedad.Precio;
-            propiedadEnDb.Estado = propiedad.Estado;
-            propiedadEnDb.Nombre = propiedad.Nombre;
-            propiedadEnDb.Direccion = propiedad.Direccion;
+            propiedadEnDb.descripcion_Propiedad = propiedad.descripcion_Propiedad;
+            propiedadEnDb.precio_Propiedad = propiedad.precio_Propiedad;
+            propiedadEnDb.estado_Propiedad = propiedad.estado_Propiedad;
+            propiedadEnDb.nombre_Propiedad = propiedad.nombre_Propiedad;
+            propiedadEnDb.direccion_Propiedad = propiedad.direccion_Propiedad;
           //  propiedadEnDb.FechaModificacion = DateTime.Now; // nos falta esto
             var cont = _repo.ModificarPropiedad(IdPropiedad, propiedadEnDb);
 

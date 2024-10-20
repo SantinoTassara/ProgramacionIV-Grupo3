@@ -7,7 +7,7 @@ namespace LogicaAlquileres.WEB.Models
     {
         public Propiedad model { get; set; } //agregue esto
 
-        public List<SelectListItem> ListaEstadosItem { get; set; }//agregue esto
+        //public List<SelectListItem> ListaEstadosItem { get; set; }//agregue esto
 
 
     }

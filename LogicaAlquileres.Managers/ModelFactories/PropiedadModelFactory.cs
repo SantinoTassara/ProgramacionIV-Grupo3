@@ -9,13 +9,13 @@ namespace LogicaAlquileres.Managers.ModelFactories
     public class PropiedadCompleto
     {
         //agregue esto
-        public int IdPropiedad { get; set; }
-        public int IdUsuario { get; set; }
-        public int? IdAquiler { get; set; }
-        public string Direccion { get; set; }
-        public string Estado { get; set; }
-        public double Precio { get; set; }
-        public string Nombre { get; set; }
-        public string Descripcion { get; set; } 
+        public int id_Propiedad { get; set; }
+        public int id_Usuario_Propiedad { get; set; }
+        public int? id_Alquiler { get; set; }
+        public string direccion_Propiedad { get; set; }
+        public string estado_Propiedad { get; set; }
+        public decimal precio_Propiedad { get; set; }
+        public string nombre_Propiedad { get; set; }
+        public string descripcion_Propiedad { get; set; } 
     }
 }

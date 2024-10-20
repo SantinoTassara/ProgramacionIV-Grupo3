@@ -22,7 +22,7 @@ namespace LogicaAlquileres.WEB.Controllers
         {
             var propiedades = _propiedadManager.GetPropiedades();
 
-            return View();
+            return View(propiedades);
         }
 
         // GET: PropiedadController/Details/5
@@ -38,13 +38,13 @@ namespace LogicaAlquileres.WEB.Controllers
         {
             PropiedadVM propiedadVM = new PropiedadVM();
             propiedadVM.model = null;
-            propiedadVM.ListaEstadosItem = new List<SelectListItem>();
+            /*propiedadVM.ListaEstadosItem = new List<SelectListItem>();
             var estados = _estadoPropiedadRepository.GetEstadosPropiedad();
             foreach (var estado in estados)
             {
                 propiedadVM.ListaEstadosItem.Add(new SelectListItem { Value = estado.IdEstadoPropiedad.ToString(), Text = estado.Descripcion });//comprobar idEstado y descripcio
             }
-
+            */
             return View(propiedadVM);
         }
 
@@ -58,22 +58,33 @@ namespace LogicaAlquileres.WEB.Controllers
                 Propiedad propiedad = new Propiedad
                 {
                     //hay q ver si entran todos, id alquiler e id usuario
-
-                    Direccion = collection["model.Direccion"],
-                    Estado = collection["model.Estado"],
-                    Precio = double.Parse(collection["model.Precio"]),
-                    Nombre = collection["model.Nombre"],
-                    Descripcion = collection["model.Descripcion"]
+                    //id_Propiedad = int.Parse(collection["model.id_Propiedad=3"]),
+                    //id_Propiedad = int.Parse(collection["model.id_Propiedad"]),
+                    id_Usuario_Propiedad = int.Parse(collection["model.id_Usuario_Propiedad"]),
+                    id_Alquiler = int.Parse(collection["model.id_Alquiler"]),
+                    direccion_Propiedad = collection["model.direccion_Propiedad"],
+                    estado_Propiedad = collection["model.estado_Propiedad"],
+                    precio_Propiedad = decimal.Parse(collection["model.precio_Propiedad"]),
+                    nombre_Propiedad = collection["model.nombre_Propiedad"],
+                    descripcion_Propiedad = collection["model.descripcion_Propiedad"]
 
                 };
-                int idUsuario = GetUserIdentityId();
+                //int idUsuario = GetUserIdentityId();
 
-                _propiedadManager.CrearPropiedad(propiedad, idUsuario);
+                _propiedadManager.CrearPropiedad(propiedad/*, idUsuario*/);
 
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            /* catch
+             {
+                 return View();
+             }
+            */
+            catch (Exception ex)
             {
+                // Registra el error
+                Console.WriteLine($"Error al crear la propiedad: {ex.ToString()}");
+                ModelState.AddModelError("", "Ocurrió un error al crear la propiedad. Detalles: " + ex.Message);
                 return View();
             }
         }
@@ -88,13 +99,13 @@ namespace LogicaAlquileres.WEB.Controllers
 
             PropiedadVM propiedadVM = new PropiedadVM();
             propiedadVM.model = propiedad;
-            propiedadVM.ListaEstadosItem = new List<SelectListItem>();
+            /*propiedadVM.ListaEstadosItem = new List<SelectListItem>();
             foreach (var estado in estados)
             {
                 propiedadVM.ListaEstadosItem.Add(new SelectListItem { Value = estado.IdEstadoPropiedad.ToString(), Text = estado.Descripcion });//comprobar idEstado y descripcio
 
             }
-
+            */
             return View(propiedadVM);
         }
 
@@ -110,11 +121,11 @@ namespace LogicaAlquileres.WEB.Controllers
 
                     //hay q ver si entran todos, id alquiler e id usuario
 
-                    Direccion = collection["model.Direccion"],
-                    Estado = collection["model.Estado"],
-                    Precio = double.Parse(collection["model.Precio"]),
-                    Nombre = collection["model.Nombre"],
-                    Descripcion = collection["model.Descripcion"]
+                    direccion_Propiedad = collection["model.Direccion"],
+                    estado_Propiedad = collection["model.Estado"],
+                    precio_Propiedad = decimal.Parse(collection["model.Precio"]),
+                    nombre_Propiedad = collection["model.Nombre"],
+                    descripcion_Propiedad = collection["model.Descripcion"]
 
                 };
                 int idUsuario = GetUserIdentityId();
@@ -138,15 +149,15 @@ namespace LogicaAlquileres.WEB.Controllers
 
             PropiedadVM propiedadVM = new PropiedadVM();
             propiedadVM.model = propiedad;
-            propiedadVM.ListaEstadosItem = new List<SelectListItem>();
+            /*propiedadVM.ListaEstadosItem = new List<SelectListItem>();
             foreach (var estado in estados)
             {
                 propiedadVM.ListaEstadosItem.Add(new SelectListItem { Value = estado.IdEstadoPropiedad.ToString(), Text = estado.Descripcion });//comprobar idEstado y descripcio
             }
-
+            */
             return View(propiedadVM);
         }
-
+        
         // POST: PropiedadController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -170,7 +181,11 @@ namespace LogicaAlquileres.WEB.Controllers
         
         private int GetUserIdentityId()
         {
-            return int.Parse(HttpContext.User.Claims.First(x => x.Type == "usuarioPropiedad").Value);//Ver en la clase 7
+            //return int.Parse(HttpContext.User.Claims.First(x => x.Type == "usuarioPropiedad").Value);
+            var claim = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "usuarioPropiedad");
+            if (claim == null) throw new Exception("Claim 'usuarioPropiedad' no encontrado.");
+            return int.Parse(claim.Value);
         }
+        
     }
 }

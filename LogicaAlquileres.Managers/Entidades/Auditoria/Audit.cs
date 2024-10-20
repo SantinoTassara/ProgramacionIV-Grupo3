@@ -9,14 +9,12 @@ namespace LogicaAlquileres.Managers.Entidades.Auditoria
     public class Audit
     {
         //public int IdUsuarioAlta { get; set; }
-        public DateTime CheckIn { get; set; }
-        //public int? IdUsuarioModificacion { get; set; }
+        //public DateTime CheckIn { get; set; }
 
-        //public DateTime? FechaModificacion { get; set; }
-
-        //public int? IdUsuarioBaja { get; set; }
-
-        public DateTime? CheckOut { get; set; }
+        public DateTime fechaAlta_Propiedad { get; set; }
+        public DateTime fechaBaja_Propiedad { get; set; }
+        public DateTime fechaModificacion_Propiedad { get; set; }
+       // public DateTime? CheckOut { get; set; }
 
     }
 }

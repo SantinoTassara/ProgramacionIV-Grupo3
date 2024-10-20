@@ -14,57 +14,57 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.IdPropiedad)
+                @Html.DisplayNameFor(model => model.id_Propiedad)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdUsuario)
+                @Html.DisplayNameFor(model => model.id_Usuario_Propiedad)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdAquiler)
+                @Html.DisplayNameFor(model => model.id_Alquiler)
             </th>
              <th>
-                @Html.DisplayNameFor(model => model.Direccion)
+                @Html.DisplayNameFor(model => model.direccion_Propiedad)
             </th>
              <th>
-                @Html.DisplayNameFor(model => model.Estado)
+                @Html.DisplayNameFor(model => model.estado_Propiedad)
             </th>
              <th>
-                @Html.DisplayNameFor(model => model.Precio)
+                @Html.DisplayNameFor(model => model.precio_Propiedad)
             </th>
              <th>
-                @Html.DisplayNameFor(model => model.Nombre)
+                @Html.DisplayNameFor(model => model.nombre_Propiedad)
             </th>
              <th>
-                @Html.DisplayNameFor(model => model.Descripcion)
+                @Html.DisplayNameFor(model => model.descripcion_Propiedad)
             </th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) { //error en model
+@foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.IdPropiedad)
+                @Html.DisplayFor(modelItem => item.id_Propiedad)
             </td>
             <td>
-                    @Html.DisplayFor(modelItem => item.IdUsuario)
+                    @Html.DisplayFor(modelItem => item.id_Usuario_Propiedad)
             </td>
             <td>
-                    @Html.DisplayFor(modelItem => item.IdAquiler)
+                    @Html.DisplayFor(modelItem => item.id_Alquiler)
             </td>
             <td>
-                    @Html.DisplayFor(modelItem => item.Direccion)
+                    @Html.DisplayFor(modelItem => item.direccion_Propiedad)
             </td>
             <td>
-                    @Html.DisplayFor(modelItem => item.Estado)
+                    @Html.DisplayFor(modelItem => item.estado_Propiedad)
             </td>
             <td>
-                    @Html.DisplayFor(modelItem => item.Precio)
+                    @Html.DisplayFor(modelItem => item.precio_Propiedad)
             </td>
             <td>
-                    @Html.DisplayFor(modelItem => item.Nombre)
+                    @Html.DisplayFor(modelItem => item.nombre_Propiedad)
             </td>
             <td>
-                    @Html.DisplayFor(modelItem => item.Descripcion)
+                    @Html.DisplayFor(modelItem => item.descripcion_Propiedad)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
