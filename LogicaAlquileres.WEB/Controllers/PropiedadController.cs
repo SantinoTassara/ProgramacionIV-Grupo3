@@ -3,6 +3,7 @@ using LogicaAlquileres.Managers.Entidades;
 using LogicaAlquileres.Managers.ModelFactories;
 using LogicaAlquileres.Repos;
 using LogicaAlquileres.WEB.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -19,6 +20,7 @@ namespace LogicaAlquileres.WEB.Controllers
             _estadoPropiedadRepository = estadoPropiedadRepository;
         }
         // GET: PropiedadController
+        [Authorize(Roles = "Administrador")]//solo para admin
         public ActionResult Index()
         {
             var propiedades = _propiedadManager.GetPropiedades();
