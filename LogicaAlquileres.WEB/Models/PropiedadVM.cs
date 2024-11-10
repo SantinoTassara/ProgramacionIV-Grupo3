@@ -5,9 +5,9 @@ namespace LogicaAlquileres.WEB.Models
 {
     public class PropiedadVM
     {
-        public Propiedad model { get; set; } //agregue esto
+        public Propiedad model { get; set; } 
 
-        //public List<SelectListItem> ListaEstadosItem { get; set; }//agregue esto
+        //public List<SelectListItem> ListaEstadosItem { get; set; }
 
 
     }
