@@ -1,8 +1,65 @@
-﻿
-@* ************* Falta lo que van a poder hacer los usuarios ************
- *@
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<LogicaAlquileres.Managers.ModelFactories.PropiedadCompleto>
+
 @{
+    ViewData["Title"] = "Alquileres Disponibles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Alquileres Disponibles</h1>
+
+@if (Model == null || !Model.Any())
+{
+    <p>No hay propiedades disponibles para mostrar.</p>
+}
+else
+{
+    <table id="alquileresTable" class="table">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.id_Propiedad)</th>
+                <th>@Html.DisplayNameFor(model => model.nombre_Propiedad)</th>
+                <th>@Html.DisplayNameFor(model => model.direccion_Propiedad)</th>
+                <th>@Html.DisplayNameFor(model => model.estado_Propiedad)</th>
+                <th>@Html.DisplayNameFor(model => model.precio_Propiedad)</th>
+                <th>@Html.DisplayNameFor(model => model.descripcion_Propiedad)</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.id_Propiedad)</td>
+                    <td>@Html.DisplayFor(modelItem => item.nombre_Propiedad)</td>
+                    <td>@Html.DisplayFor(modelItem => item.direccion_Propiedad)</td>
+                    <td>@Html.DisplayFor(modelItem => item.estado_Propiedad)</td>
+                    <td>@Html.DisplayFor(modelItem => item.precio_Propiedad)</td>
+                    <td>@Html.DisplayFor(modelItem => item.descripcion_Propiedad)</td>
+                    <td>
+                        <!-- Solo mostramos el enlace a los detalles -->
+                        @Html.ActionLink("Detalles", "Details", new { id = item.id_Propiedad })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@* Inicializar DataTables *@
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Inicializar DataTables en la tabla de alquileres
+            if ($('#alquileresTable').length) {
+                $('#alquileresTable').DataTable({
+                    paging: true,
+                    searching: true,
+                    ordering: true,
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json' // Configuración en español
+                    }
+                });
+            }
+        });
+    </script>
 }

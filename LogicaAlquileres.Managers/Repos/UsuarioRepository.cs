@@ -73,9 +73,9 @@ namespace LogicaAlquileres.Managers.Repos
         {
             using (IDbConnection db = new SqlConnection(_connectionString))
             {
-                string query = @"INSERT INTO Grupo3.usuario (GoogleIdentificador, NombreCompleto, Nombre, Apellido, Email, Borrado, IdUsuarioAlta, FechaAlta, IdUsuarioModificacion, FechaModificacion, IdUsuarioBaja, FechaBaja)  
-                         VALUES (@GoogleIdentificador, @NombreCompleto, @Nombre, @Apellido, @Email, @Borrado, @IdUsuarioAlta, @FechaAlta, @IdUsuarioModificacion, @FechaModificacion, @IdUsuarioBaja, @FechaBaja);                    
-                         SELECT CAST(SCOPE_IDENTITY() AS INT)";//hay q modificar esto segun nuestra tabla
+                string query = @"INSERT INTO Grupo3.usuario (nombre_Usuario, apellido_Usuario, telefono_Usuario, email_Usuario, password_Usuario, GoogleIdentificador)  
+                         VALUES (@nombre_Usuario, @apellido_Usuario, @telefono_Usuario, @email_Usuario, @password_Usuario, @GoogleIdentificador);                    
+                         SELECT CAST(SCOPE_IDENTITY() AS INT)";
 
                 usuario.id_usuario = db.QuerySingle<int>(query, usuario);
 
