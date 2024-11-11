@@ -76,7 +76,8 @@ namespace LogicaAlquileres.WEB.Controllers
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Name, usuario.nombre_Usuario),
-                    new Claim(ClaimTypes.Email, usuario.email_Usuario)
+                    new Claim(ClaimTypes.Email, usuario.email_Usuario),
+                    new Claim(ClaimTypes.NameIdentifier, usuario.id_usuario.ToString()) //para el boton alquilar
                 };
 
                 // Asignar rol en función del correo electrónico

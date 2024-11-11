@@ -1,0 +1,70 @@
+﻿@model IEnumerable<LogicaAlquileres.Managers.Entidades.Alquiler>
+
+@{
+    ViewData["Title"] = "Mis Alquileres";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (User.IsInRole("Administrador"))
+{
+        <h2 class="text-center text-white">Todos los Alquileres(Administrador)</h2>
+}
+else
+{
+        <h2 class="text-center text-white">Mis Alquileres</h2>
+}
+
+@if (Model == null || !Model.Any())
+{
+        <div class="alert alert-warning text-white">
+            <p>No tienes alquileres registrados.</p>
+        </div>
+}
+else
+{
+        <div class="table-container">
+            <table id="alquileresTable" class="table table-striped table-bordered">
+                <thead>
+                    <tr class="text-white">
+                        <th>Check-In</th>
+                        <th>Nombre Propiedad</th>
+                        <th>Precio</th>
+                        <th>Dirección</th>
+                    @if (User.IsInRole("Administrador"))
+                    {
+                                <th>ID Inquilino</th>  <!-- Columna adicional solo para administradores -->
+                    }
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model)
+                {
+                        <tr class="text-white">
+                            <td>@Html.DisplayFor(modelItem => item.checkIn_Alquiler)</td>
+                            <td>@Html.DisplayFor(modelItem => item.nombre_Propiedad)</td>
+                            <td>@Html.DisplayFor(modelItem => item.precioTotal_Alquiler)</td>
+                            <td>@Html.DisplayFor(modelItem => item.direccion_Alquiler)</td>
+                        @if (User.IsInRole("Administrador"))
+                        {
+                                    <td>@Html.DisplayFor(modelItem => item.id_Inquilino_Alquiler)</td>  <!-- Mostrar ID del inquilino solo para administradores -->
+                        }
+                            <td>
+                                <!-- Formulario para dar de baja -->
+                                <form action="@Url.Action("DarDeBaja", "Alquiler")" method="post">
+                                    <input type="hidden" name="idAlquiler" value="@item.id_Alquiler" />
+                                    <button type="submit" class="btn btn-danger btn-sm">Dar de baja</button>
+                                </form>
+                            </td>
+                        </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+}
+
+<!-- Botón para volver al índice de propiedades disponibles -->
+<div class="mt-3 text-center">
+    <a href="@Url.Action("Index", "Alquiler")" class="btn btn-primary">Volver a propiedades disponibles</a>
+</div>
+

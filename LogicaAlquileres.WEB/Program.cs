@@ -14,8 +14,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IPropiedadManager, PropiedadManager>();
 builder.Services.AddScoped<IPropiedadRepository>(
         _ => new PropiedadRepository(builder.Configuration["Db:ConnectionString"]));
-builder.Services.AddScoped<IEstadoPropiedadRepository>(
-        _ => new EstadoPropiedadRepository(builder.Configuration["Db:ConnectionString"]));
+builder.Services.AddScoped<IAlquilerRepository>(
+        _ => new AlquilerRepository(builder.Configuration["Db:ConnectionString"]));
 builder.Services.AddScoped<IUsuarioRepository>(
         _ => new UsuarioRepository(builder.Configuration["Db:ConnectionString"]));
 
@@ -67,11 +67,14 @@ builder.Services.AddAuthentication(options =>
         {
             idUsuario = usuario.id_usuario;
         }
-
+        
         // Asignar rol basado en el email
         var role = email == "admin@example.com" ? "Administrador" : "Usuario";
-        ctx.Identity.AddClaim(new Claim("UNLZRole", role));
-        ctx.Identity.AddClaim(new Claim("usuarioContainer", idUsuario.ToString()));
+        //ctx.Identity.AddClaim(new Claim("UNLZRole", role));
+        ctx.Identity.AddClaim(new Claim(ClaimTypes.Role, role));
+        //ctx.Identity.AddClaim(new Claim("usuarioContainer", idUsuario.ToString()));
+        ctx.Identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, idUsuario.ToString()));
+
 
         await Task.CompletedTask;
     };

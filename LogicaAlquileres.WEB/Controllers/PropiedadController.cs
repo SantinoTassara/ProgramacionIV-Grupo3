@@ -12,9 +12,9 @@ namespace LogicaAlquileres.WEB.Controllers
     public class PropiedadController : Controller
     {
         private IPropiedadManager _propiedadManager;
-        private IEstadoPropiedadRepository _estadoPropiedadRepository;
+        private IAlquilerRepository _estadoPropiedadRepository;
 
-        public PropiedadController (IPropiedadManager propiedadManager, IEstadoPropiedadRepository estadoPropiedadRepository)
+        public PropiedadController (IPropiedadManager propiedadManager, IAlquilerRepository estadoPropiedadRepository)
         {
             _propiedadManager = propiedadManager;
             _estadoPropiedadRepository = estadoPropiedadRepository;

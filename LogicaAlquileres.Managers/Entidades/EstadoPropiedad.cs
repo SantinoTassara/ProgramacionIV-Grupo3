@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace LogicaAlquileres.Managers.Entidades
 {
-    public class EstadoPropiedad
-    {
-        public int IdEstadoPropiedad {  get; set; }
-        public string Descripcion { get; set; }
-    }
+    //public class EstadoPropiedad
+    //{
+    //    public int IdEstadoPropiedad {  get; set; }
+    //    public string Descripcion { get; set; }
+    //}
 }
