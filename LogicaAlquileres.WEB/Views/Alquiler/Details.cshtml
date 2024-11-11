@@ -2,6 +2,7 @@
 
 <h1>Detalles de la Propiedad</h1>
 
+<<<<<<< HEAD
 <style>
     .property-details {
         color: white !important;
@@ -24,6 +25,8 @@
     }
 </style>
 
+=======
+>>>>>>> 819df21461be7bd76b98b2a5db9783ab93eaceb0
 <div class="property-details">
     <h2>@Model.nombre_Propiedad</h2>
 
@@ -37,10 +40,22 @@
     <p><strong>Última Modificación:</strong> @Model.fechaModificacion_Propiedad.ToString("dd/MM/yyyy")</p>
 </div>
 
+<<<<<<< HEAD
+=======
+<!-- Enlace para volver a la lista de propiedades -->
+>>>>>>> 819df21461be7bd76b98b2a5db9783ab93eaceb0
 <div>
     <a href="@Url.Action("Index", "Alquiler")" class="btn btn-secondary">Volver a la lista de propiedades en alquiler</a>
 </div>
 
+<<<<<<< HEAD
 <div class="mt-3">
     <a href="@Url.Action("Alquilar", "Alquiler", new { id = Model.id_Propiedad })" class="btn btn-primary">Alquilar</a>
 </div>
+=======
+<!-- Botón "Alquilar" redirigiendo al controlador Alquiler -->
+<div class="mt-3">
+    <a href="@Url.Action("Alquilar", "Alquiler", new { id = Model.id_Propiedad })" class="btn btn-primary">Alquilar</a>
+</div>
+
+>>>>>>> 819df21461be7bd76b98b2a5db9783ab93eaceb0

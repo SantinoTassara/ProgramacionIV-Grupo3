@@ -5,16 +5,25 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<<<<<<< HEAD
 <h1 class="text-center text-white">Alquileres Disponibles</h1>
 
 @if (Model == null || !Model.Any())
 {
     <div class="alert alert-warning text-white">
+=======
+<h1 class="text-center text-primary">Alquileres Disponibles</h1>
+
+@if (Model == null || !Model.Any())
+{
+    <div class="alert alert-warning">
+>>>>>>> 819df21461be7bd76b98b2a5db9783ab93eaceb0
         <p>No hay propiedades disponibles para mostrar.</p>
     </div>
 }
 else
 {
+<<<<<<< HEAD
     @* Aquí se agrega el contenedor para la tabla *@
     <div class="table-container">
         <table id="alquileresTable" class="table table-striped table-bordered">
@@ -45,6 +54,35 @@ else
             </tbody>
         </table>
     </div>
+=======
+    <table id="alquileresTable" class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.nombre_Propiedad)</th>
+                <th>@Html.DisplayNameFor(model => model.direccion_Propiedad)</th>
+                <th>@Html.DisplayNameFor(model => model.estado_Propiedad)</th>
+                <th>@Html.DisplayNameFor(model => model.precio_Propiedad)</th>
+                <th>@Html.DisplayNameFor(model => model.descripcion_Propiedad)</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.nombre_Propiedad)</td>
+                    <td>@Html.DisplayFor(modelItem => item.direccion_Propiedad)</td>
+                    <td>@Html.DisplayFor(modelItem => item.estado_Propiedad)</td>
+                    <td>@Html.DisplayFor(modelItem => item.precio_Propiedad)</td>
+                    <td>@Html.DisplayFor(modelItem => item.descripcion_Propiedad)</td>
+                    <td>
+                        @Html.ActionLink("Detalles", "Details", new { id = item.id_Propiedad }, new { @class = "btn btn-info btn-sm" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+>>>>>>> 819df21461be7bd76b98b2a5db9783ab93eaceb0
 }
 
 @* Inicializar DataTables con mejoras *@
