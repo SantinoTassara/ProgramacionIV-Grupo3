@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inicio</title> <!-- Título cambiado a "INICIO" -->
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Menu.WEB.styles.css" asp-append-version="true" />
+
+    <style>
+        /* Eliminar completamente el fondo, sombra y borde de la barra de navegación */
+        .navbar {
+            background-color: transparent !important; /* Fondo transparente */
+            box-shadow: none !important; /* Eliminar sombra */
+            border: none !important; /* Eliminar borde */
+        }
+
+        /* Asegurarse de que el texto sea visible con color blanco */
+        .navbar-brand, .navbar-nav .nav-link {
+            color: white !important; /* Texto blanco */
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7); /* Sombra para mejorar la visibilidad */
+        }
+
+            /* Evitar que el color de fondo azul de los enlaces se aplique */
+            .navbar-nav .nav-link.active,
+            .navbar-nav .nav-link:focus,
+            .navbar-nav .nav-link:hover {
+                color: #ffdd57 !important; /* Texto dorado en hover */
+                text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5); /* Sombra en el texto */
+            }
+
+        /* Cambiar el color de los iconos de la hamburguesa para que sea visible */
+        .navbar-toggler-icon {
+            background-color: white !important; /* Cambiar icono de menú hamburguesa */
+        }
+
+        /* Asegurarse de que el texto en el cuerpo también sea legible */
+        body {
+            color: white; /* Texto blanco */
+            background-color: #333; /* Fondo oscuro, puedes ajustarlo */
+        }
+
+        main {
+            color: white; /* Asegurar que el contenido principal tenga texto blanco */
+        }
+
+        /* Mejorar visibilidad de los botones en un fondo oscuro */
+        .btn, .nav-link {
+            color: white !important; /* Botones y enlaces con texto blanco */
+        }
+
+            .btn:hover, .nav-link:hover {
+                color: #ffdd57 !important; /* Cambiar a dorado en hover */
+            }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm">
+            <div class="container-fluid">
+                @* Muestra el enlace de la marca y los botones sólo si el usuario está autenticado *@
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a> <!-- Cambiado a "INICIO" -->
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                        <ul class="navbar-nav flex-grow-1">
+                            @* Verifica si el usuario es Administrador y muestra el botón de Propiedades *@
+                            @if (User.IsInRole("Administrador"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Propiedad" asp-action="Index">Propiedades</a>
+                                </li>
+                            }
+                            @* Muestra el botón Alquileres para todos los usuarios *@
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Alquiler" asp-action="Index">Alquileres</a>
+                            </li>
+                        </ul>
+
+                        @* Botón de Cerrar Sesión en la esquina derecha *@
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Login" asp-action="Logout">Cerrar Sesión</a>
+                            </li>
+                        </ul>
+                    </div>
+                }
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <!-- Agregar jQuery desde CDN (dependencia de DataTables) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Agregar el JavaScript de DataTables desde CDN -->
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @* Renderizar los scripts específicos de la vista actual *@
+    @await RenderSectionAsync("Scripts", required: false)
+
+    <!-- Inicialización de DataTables -->
+    <script>
+        $(document).ready(function () {
+            // Solo inicializar DataTables si la tabla existe
+            if ($('#propiedadTable').length) {
+                $('#propiedadTable').DataTable({
+                    paging: true,
+                    searching: true,
+                    ordering: true,
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json' // Configuración en español
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

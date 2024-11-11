@@ -1,0 +1,27 @@
+﻿@model LogicaAlquileres.WEB.Models.PropiedadVM
+
+<h1>Confirmar Eliminación</h1>
+<h4>¿Está seguro que desea eliminar esta propiedad?</h4>
+<div>
+    <h5>@Model.model.nombre_Propiedad</h5>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.model.direccion_Propiedad)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.model.direccion_Propiedad)
+        </dd>
+        <!-- Otros campos que desees mostrar -->
+    </dl>
+</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="model.id_Propiedad" />
+    <div class="form-group">
+        <input type="submit" value="Eliminar" class="btn btn-danger" />
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Volver a la lista</a>
+</div>

@@ -1,0 +1,46 @@
+﻿@model LogicaAlquileres.Managers.Entidades.Propiedad
+
+<h1>Detalles de la Propiedad</h1>
+
+<style>
+    .property-details {
+        color: white !important;
+    }
+
+    .btn, .btn-primary, .btn-secondary {
+        color: white !important;
+        background-color: transparent !important;
+        border: 1px solid white !important;
+    }
+
+        .btn:hover, .btn-primary:hover, .btn-secondary:hover {
+            color: black !important;
+            background-color: #ffdd57 !important;
+            border-color: #ffdd57 !important;
+        }
+
+    h1, h2, p {
+        color: white !important;
+    }
+</style>
+
+<div class="property-details">
+    <h2>@Model.nombre_Propiedad</h2>
+
+    <p><strong>Dirección:</strong> @Model.direccion_Propiedad</p>
+    <p><strong>Estado:</strong> @Model.estado_Propiedad</p>
+    <p><strong>Precio:</strong> $@Model.precio_Propiedad.ToString("0.00")</p>
+    <p><strong>Descripción:</strong> @Model.descripcion_Propiedad</p>
+
+    <p><strong>Fecha de Alta:</strong> @Model.fechaAlta_Propiedad.ToString("dd/MM/yyyy")</p>
+    <p><strong>Fecha de Baja:</strong> @Model.fechaBaja_Propiedad.ToString("dd/MM/yyyy")</p>
+    <p><strong>Última Modificación:</strong> @Model.fechaModificacion_Propiedad.ToString("dd/MM/yyyy")</p>
+</div>
+
+<div>
+    <a href="@Url.Action("Index", "Alquiler")" class="btn btn-secondary">Volver a la lista de propiedades en alquiler</a>
+</div>
+
+<div class="mt-3">
+    <a href="@Url.Action("Alquilar", "Alquiler", new { id = Model.id_Propiedad })" class="btn btn-primary">Alquilar</a>
+</div>

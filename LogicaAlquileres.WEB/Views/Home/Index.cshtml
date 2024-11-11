@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<style>
+    .container-home {
+        color: white; /* Cambia el color del texto a blanco para todos los elementos dentro */
+    }
+
+        /* También puedes especificar más explícitamente el color para otros elementos */
+        .container-home h3, .container-home p {
+            color: white; /* Asegúrate de que h3 y p tengan color blanco */
+        }
+</style>
+
+<div class="container-home">
+    @if (Context.User.Identity.IsAuthenticated)
+    {
+        <h3>Bienvenido @User.Identity.Name</h3>
+
+        @if (User.IsInRole("Administrador"))
+        {
+            <p>¡Eres Administrador!</p>
+        }
+        else
+        {
+            <p>¡Eres Usuario!</p>
+        }
+    }
+    else
+    {
+        <h3>¡Bienvenido a nuestra aplicación de alquileres!</h3>
+        <p>Por favor, inicia sesión para continuar.</p>
+    }
+</div>
