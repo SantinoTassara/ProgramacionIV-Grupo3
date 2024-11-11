@@ -1,19 +1,53 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-@if (Context.User.Identity.IsAuthenticated)
-{
-        <br />
+
+<!-- Agregar estilos inline para el fondo -->
+<style>
+    body {
+        background-image: url("/images/fondo.jpg"); /* Ruta relativa desde wwwroot */
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 100vh;
+    }
+
+    .container-home {
+        text-align: center;
+        padding: 50px;
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 10px;
+        max-width: 600px;
+        margin: auto;
+    }
+
+    h3 {
+        font-size: 2em;
+        color: #004080;
+    }
+
+    p {
+        font-size: 1.2em;
+    }
+</style>
+
+<div class="container-home">
+    @if (Context.User.Identity.IsAuthenticated)
+    {
         <h3>Bienvenido @User.Identity.Name</h3>
 
-    @if (User.IsInRole("Administrador"))
-    {
-                <p>¡Eres Administrador!</p>
+        @if (User.IsInRole("Administrador"))
+        {
+            <p>¡Eres Administrador!</p>
+        }
+        else
+        {
+            <p>¡Eres Usuario!</p>
+        }
     }
     else
     {
-                <p>¡Eres Usuario!</p>
+        <h3>¡Bienvenido a nuestra aplicación de alquileres!</h3>
+        <p>Por favor, inicia sesión para continuar.</p>
     }
-
-        <br />
-}
+</div>
