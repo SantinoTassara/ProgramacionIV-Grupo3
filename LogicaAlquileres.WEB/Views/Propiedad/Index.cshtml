@@ -5,77 +5,114 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Propiedades Cargadas</h1>
+<<<<<<< HEAD
+<h1 class="text-center text-white">Propiedades Cargadas</h1>
 
-<p>
-    <a asp-action="Create">Cargar Nueva Propiedad</a>
+@if (Model == null || !Model.Any())
+{
+    <div class="alert alert-warning text-white">
+        <p>No hay propiedades disponibles para mostrar.</p>
+    </div>
+}
+else
+{
+    @* Aquí se agrega el contenedor para la tabla *@
+    <div class="table-container">
+        <table id="propiedadesTable" class="table table-striped table-bordered">
+            <thead>
+                <tr class="text-white">
+                    <th style="width: 80px;">ID Propiedad</th>
+                    <th style="width: 150px;">Nombre Propiedad</th>
+                    <th style="width: 200px;">Dirección Propiedad</th>
+                    <th style="width: 120px;">Estado Propiedad</th>
+                    <th style="width: 100px;">Precio Propiedad</th>
+                    <th style="width: 150px;">Descripción Propiedad</th>
+                    <th style="width: 180px;">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="text-white">
+                        <td>@Html.DisplayFor(modelItem => item.id_Propiedad)</td>
+                        <td>@Html.DisplayFor(modelItem => item.nombre_Propiedad)</td>
+                        <td>@Html.DisplayFor(modelItem => item.direccion_Propiedad)</td>
+                        <td>@Html.DisplayFor(modelItem => item.estado_Propiedad)</td>
+                        <td>@Html.DisplayFor(modelItem => item.precio_Propiedad)</td>
+                        <td>@Html.DisplayFor(modelItem => item.descripcion_Propiedad)</td>
+                        <td>
+                            <div class="d-flex justify-content-around">
+                                <a asp-action="Edit" asp-route-id="@item.id_Propiedad" class="btn btn-warning btn-sm text-white">Editar</a>
+                                <a asp-action="Details" asp-route-id="@item.id_Propiedad" class="btn btn-info btn-sm text-white">Detalles</a>
+                                <a asp-action="Delete" asp-route-id="@item.id_Propiedad" class="btn btn-danger btn-sm text-white">Eliminar</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Inicializar DataTables solo si la tabla existe
+            if ($('#propiedadesTable').length) {
+                $('#propiedadesTable').DataTable({
+                    paging: true,
+                    searching: true,
+                    ordering: true,
+                    lengthMenu: [5, 10, 25, 50], // Opción para seleccionar el número de filas a mostrar
+                    pageLength: 10, // Número de filas por página por defecto
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json' // Configuración en español
+                    },
+                    responsive: true // Mejora la visualización en dispositivos móviles
+                });
+            }
+        });
+    </script>
+}
+=======
+<h1 class="text-center my-4">Propiedades Cargadas</h1>
+
+<p class="text-center">
+    <a asp-action="Create" class="btn btn-primary">Cargar Nueva Propiedad</a>
 </p>
-<table class="table">
-    <thead>
+
+<!-- Tabla mejorada con Bootstrap -->
+<table class="table table-hover table-striped table-bordered">
+    <thead class="table-dark">
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.id_Propiedad)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.nombre_Propiedad)
-            </th>
-           @*  <th>
-                @Html.DisplayNameFor(model => model.id_Usuario_Propiedad)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.id_Alquiler)
-            </th> *@
-             <th>
-                @Html.DisplayNameFor(model => model.direccion_Propiedad)
-            </th>
-             <th>
-                @Html.DisplayNameFor(model => model.estado_Propiedad)
-            </th>
-             <th>
-                @Html.DisplayNameFor(model => model.precio_Propiedad)
-            </th>
-             
-             <th>
-                @Html.DisplayNameFor(model => model.descripcion_Propiedad)
-            </th>
+            <th>@Html.DisplayNameFor(model => model.id_Propiedad)</th>
+            <th>@Html.DisplayNameFor(model => model.nombre_Propiedad)</th>
+            <th>@Html.DisplayNameFor(model => model.direccion_Propiedad)</th>
+            <th>@Html.DisplayNameFor(model => model.estado_Propiedad)</th>
+            <th>@Html.DisplayNameFor(model => model.precio_Propiedad)</th>
+            <th>@Html.DisplayNameFor(model => model.descripcion_Propiedad)</th>
+            <th style="width: 250px;">Acciones</th> <!-- Ajustamos el ancho de la columna -->
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.id_Propiedad)
-            </td>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.id_Propiedad)</td>
+                <td>@Html.DisplayFor(modelItem => item.nombre_Propiedad)</td>
+                <td>@Html.DisplayFor(modelItem => item.direccion_Propiedad)</td>
+                <td>@Html.DisplayFor(modelItem => item.estado_Propiedad)</td>
+                <td>@Html.DisplayFor(modelItem => item.precio_Propiedad)</td>
+                <td>@Html.DisplayFor(modelItem => item.descripcion_Propiedad)</td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.nombre_Propiedad)
+                    <div class="d-flex justify-content-around">
+                        <a asp-action="Edit" asp-route-id="@item.id_Propiedad" class="btn btn-sm btn-warning">Editar</a>
+                        <a asp-action="Details" asp-route-id="@item.id_Propiedad" class="btn btn-sm btn-info">Detalles</a>
+                        <a asp-action="Delete" asp-route-id="@item.id_Propiedad" class="btn btn-sm btn-danger">Eliminar</a>
+                    </div>
                 </td>
-            @* <td>
-                    @Html.DisplayFor(modelItem => item.id_Usuario_Propiedad)
-            </td>
-            <td>
-                    @Html.DisplayFor(modelItem => item.id_Alquiler)
-            </td> *@
-            <td>
-                    @Html.DisplayFor(modelItem => item.direccion_Propiedad)
-            </td>
-            <td>
-                    @Html.DisplayFor(modelItem => item.estado_Propiedad)
-            </td>
-            <td>
-                    @Html.DisplayFor(modelItem => item.precio_Propiedad)
-            </td>
-            
-            <td>
-                    @Html.DisplayFor(modelItem => item.descripcion_Propiedad)
-            </td>
-            <td>
-                @* @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) | *@
-                    @Html.ActionLink("Editar", "Edit", new { id = item.id_Propiedad }) |
-                    @Html.ActionLink("Detalles", "Details", new { id = item.id_Propiedad }) |
-                @* @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ }) *@
-                    @Html.ActionLink("Elimiar", "Delete", new { id = item.id_Propiedad })
-            </td>
-        </tr>
-}
+            </tr>
+        }
     </tbody>
 </table>
+>>>>>>> 819df21461be7bd76b98b2a5db9783ab93eaceb0

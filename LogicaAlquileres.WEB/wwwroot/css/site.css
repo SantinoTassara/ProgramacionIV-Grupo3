@@ -1,4 +1,74 @@
 html {
+<<<<<<< HEAD
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+.table-container {
+    max-height: 400px; /* Ajusta según el tamaño que desees */
+    overflow-y: auto; /* Permite desplazamiento vertical */
+}
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    background-color: #f0f8ff;
+    background-image: url('images/playita 2.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #333;
+    font-family: Arial, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #2C3E50;
+    margin-top: 0;
+}
+
+a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+    a:hover, a:focus {
+        color: #2980b9;
+    }
+
+p {
+    color: #666666;
+    line-height: 1.5;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: #333333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+header, .navbar {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+}
+=======
   font-size: 14px;
 }
 
@@ -20,3 +90,4 @@ html {
 body {
   margin-bottom: 60px;
 }
+>>>>>>> 819df21461be7bd76b98b2a5db9783ab93eaceb0

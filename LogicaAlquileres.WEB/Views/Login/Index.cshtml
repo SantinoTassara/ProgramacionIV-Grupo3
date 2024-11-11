@@ -1,3 +1,40 @@
+<<<<<<< HEAD
+﻿<div class="container d-flex justify-content-center align-items-center" style="height: 90vh; background: url('https://www.example.com/your-beach-image.jpg') no-repeat center center; background-size: cover;">
+    <div class="card p-4" style="width: 100%; max-width: 400px; background-color: rgba(255, 255, 255, 0.85); border-radius: 20px;">
+        <!-- Título de la página con la palmera -->
+        <h1 class="text-center d-flex justify-content-center align-items-center" style="font-family: 'Lobster', cursive; color: #ff8c00; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); margin-bottom: 20px;">
+            <!-- Imagen de la palmera -->
+            <img src="/css/images/palmera 5.png" alt="Palmera" style="width: 90px; height: 120px; margin-right: 35px;">
+
+
+            Alquiler de Propiedades
+        </h1>
+        
+        <!-- Mensaje de error -->
+        @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+        {
+            <div class="alert alert-danger" role="alert">
+                @ViewBag.ErrorMessage
+            </div>
+        }
+
+        <!-- Formulario de login -->
+        <form asp-controller="Login" asp-action="LoginWithCredentials" method="post">
+            <div class="form-group">
+                <label for="email" style="font-weight: bold; color: #ff8c00;">Email</label>
+                <input type="email" id="email" name="email" class="form-control" style="border-radius: 20px; border: 1px solid #ff8c00;" required>
+            </div>
+            <div class="form-group">
+                <label for="password" style="font-weight: bold; color: #ff8c00;">Password</label>
+                <input type="password" id="password" name="password" class="form-control" style="border-radius: 20px; border: 1px solid #ff8c00;" required>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <button type="submit" class="btn btn-warning btn-block" style="border-radius: 20px; font-weight: bold;">Iniciar sesión</button>
+                </div>
+                <div class="col-12 mt-2">
+                    <a asp-controller="Login" asp-action="Login" class="btn btn-danger btn-block" style="border-radius: 20px; font-weight: bold; background-color: #ff5733;">Loguearse con Google</a>
+=======
 ﻿ <div class="container d-flex justify-content-center align-items-center" style="height: 90vh;">
     <div class="card p-4" style="width: 100%; max-width: 400px;">
         <h2 class="text-center">Iniciar Sesión</h2>
@@ -25,8 +62,15 @@
                 <div class="col-12 mt-2">
                     <!-- Enlace para login con Google, redirige a la acción Login en LoginController -->
                     <a asp-controller="Login" asp-action="Login" class="btn btn-danger btn-block">Loguearse con Google</a>
+>>>>>>> 819df21461be7bd76b98b2a5db9783ab93eaceb0
                 </div>
             </div>
         </form>
     </div>
 </div>
+<<<<<<< HEAD
+
+
+<link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+=======
+>>>>>>> 819df21461be7bd76b98b2a5db9783ab93eaceb0

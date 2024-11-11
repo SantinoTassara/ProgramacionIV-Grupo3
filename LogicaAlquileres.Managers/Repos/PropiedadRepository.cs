@@ -94,8 +94,8 @@ namespace LogicaAlquileres.Repos
         {
             using (IDbConnection db = new SqlConnection(_connectionString))
             {
-                string query = @"INSERT INTO Grupo3.propiedad (id_Usuario_Propiedad, id_Alquiler, direccion_Propiedad, estado_Propiedad, precio_Propiedad, nombre_Propiedad, descripcion_Propiedad, fechaAlta_Propiedad)  
-                        VALUES (@id_Usuario_Propiedad, @id_Alquiler, @direccion_Propiedad, @estado_Propiedad, @precio_Propiedad, @nombre_Propiedad, @descripcion_Propiedad, @fechaAlta_Propiedad);
+                string query = @"INSERT INTO Grupo3.propiedad (direccion_Propiedad, estado_Propiedad, precio_Propiedad, nombre_Propiedad, descripcion_Propiedad, fechaAlta_Propiedad)  
+                        VALUES (@direccion_Propiedad, @estado_Propiedad, @precio_Propiedad, @nombre_Propiedad, @descripcion_Propiedad, @fechaAlta_Propiedad);
                         SELECT CAST(SCOPE_IDENTITY() AS INT)";
 
                 /* var id = db.QuerySingle<int>(query, propiedad);
@@ -115,8 +115,6 @@ namespace LogicaAlquileres.Repos
                 string query = @"
             UPDATE Grupo3.propiedad
             SET 
-                id_Usuario_Propiedad = @id_Usuario_Propiedad, 
-                id_Alquiler = @id_Alquiler, 
                 direccion_Propiedad = @direccion_Propiedad, 
                 estado_Propiedad = @estado_Propiedad, 
                 precio_Propiedad = @precio_Propiedad, 
@@ -128,8 +126,8 @@ namespace LogicaAlquileres.Repos
                 // Mapear los parámetros de forma segura.
                 var parameters = new
                 {
-                    id_Usuario_Propiedad = propiedad.id_Usuario_Propiedad,
-                    id_Alquiler = propiedad.id_Alquiler,
+                    //id_Usuario_Propiedad = propiedad.id_Usuario_Propiedad,
+                    //id_Alquiler = propiedad.id_Alquiler,
                     direccion_Propiedad = propiedad.direccion_Propiedad,
                     estado_Propiedad = propiedad.estado_Propiedad,
                     precio_Propiedad = propiedad.precio_Propiedad,
@@ -177,6 +175,25 @@ namespace LogicaAlquileres.Repos
 
                 // Ejecutar la consulta y devolver si se eliminó un registro
                 return db.Execute(query, new { IdPropiedad }) == 1;
+            }
+        }
+        public IEnumerable<Propiedad> GetPropiedadesDisponibles(bool? SoloActivos = true)
+        {
+            using (IDbConnection conn = new SqlConnection(_connectionString))
+            {
+                // Comienza con la consulta básica
+                string query = "SELECT * FROM Grupo3.propiedad";
+
+                // Si SoloActivos es true, filtra las propiedades que están disponibles
+                if (SoloActivos == true)
+                {
+                    query += " WHERE estado_Propiedad = @estado";
+                }
+
+                // Ejecuta la consulta y devuelve las propiedades
+                IEnumerable<Propiedad> results = conn.Query<Propiedad>(query, new { estado = "Disponible" });
+
+                return results;
             }
         }
     }

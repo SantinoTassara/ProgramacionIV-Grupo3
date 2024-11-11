@@ -37,8 +37,8 @@ namespace LogicaAlquileres.WEB.Controllers
                 var propiedadCompleto = new PropiedadCompleto
                 {
                     id_Propiedad = propiedad.id_Propiedad,
-                    id_Usuario_Propiedad = propiedad.id_Usuario_Propiedad,
-                    id_Alquiler = propiedad.id_Alquiler,
+                    //id_Usuario_Propiedad = propiedad.id_Usuario_Propiedad,
+                    //id_Alquiler = propiedad.id_Alquiler,
                     direccion_Propiedad = propiedad.direccion_Propiedad,
                     estado_Propiedad = propiedad.estado_Propiedad,
                     precio_Propiedad = propiedad.precio_Propiedad,
@@ -62,13 +62,7 @@ namespace LogicaAlquileres.WEB.Controllers
         {
             PropiedadVM propiedadVM = new PropiedadVM();
             propiedadVM.model = null;
-            /*propiedadVM.ListaEstadosItem = new List<SelectListItem>();
-            var estados = _estadoPropiedadRepository.GetEstadosPropiedad();
-            foreach (var estado in estados)
-            {
-                propiedadVM.ListaEstadosItem.Add(new SelectListItem { Value = estado.IdEstadoPropiedad.ToString(), Text = estado.Descripcion });//comprobar idEstado y descripcio
-            }
-            */
+           
             return View(propiedadVM);
         }
 
@@ -84,8 +78,8 @@ namespace LogicaAlquileres.WEB.Controllers
                     //hay q ver si entran todos, id alquiler e id usuario
                     //id_Propiedad = int.Parse(collection["model.id_Propiedad=3"]),
                     //id_Propiedad = int.Parse(collection["model.id_Propiedad"]),
-                    id_Usuario_Propiedad = int.Parse(collection["model.id_Usuario_Propiedad"]),
-                    id_Alquiler = int.Parse(collection["model.id_Alquiler"]),
+                    //id_Usuario_Propiedad = int.Parse(collection["model.id_Usuario_Propiedad"]),
+                    //id_Alquiler = int.Parse(collection["model.id_Alquiler"]),
                     direccion_Propiedad = collection["model.direccion_Propiedad"],
                     estado_Propiedad = collection["model.estado_Propiedad"],
                     precio_Propiedad = decimal.Parse(collection["model.precio_Propiedad"]),
