@@ -5,7 +5,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<<<<<<< HEAD
 <h1 class="text-center text-white">Propiedades Cargadas</h1>
 
 @if (Model == null || !Model.Any())
@@ -74,45 +73,3 @@ else
         });
     </script>
 }
-=======
-<h1 class="text-center my-4">Propiedades Cargadas</h1>
-
-<p class="text-center">
-    <a asp-action="Create" class="btn btn-primary">Cargar Nueva Propiedad</a>
-</p>
-
-<!-- Tabla mejorada con Bootstrap -->
-<table class="table table-hover table-striped table-bordered">
-    <thead class="table-dark">
-        <tr>
-            <th>@Html.DisplayNameFor(model => model.id_Propiedad)</th>
-            <th>@Html.DisplayNameFor(model => model.nombre_Propiedad)</th>
-            <th>@Html.DisplayNameFor(model => model.direccion_Propiedad)</th>
-            <th>@Html.DisplayNameFor(model => model.estado_Propiedad)</th>
-            <th>@Html.DisplayNameFor(model => model.precio_Propiedad)</th>
-            <th>@Html.DisplayNameFor(model => model.descripcion_Propiedad)</th>
-            <th style="width: 250px;">Acciones</th> <!-- Ajustamos el ancho de la columna -->
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@Html.DisplayFor(modelItem => item.id_Propiedad)</td>
-                <td>@Html.DisplayFor(modelItem => item.nombre_Propiedad)</td>
-                <td>@Html.DisplayFor(modelItem => item.direccion_Propiedad)</td>
-                <td>@Html.DisplayFor(modelItem => item.estado_Propiedad)</td>
-                <td>@Html.DisplayFor(modelItem => item.precio_Propiedad)</td>
-                <td>@Html.DisplayFor(modelItem => item.descripcion_Propiedad)</td>
-                <td>
-                    <div class="d-flex justify-content-around">
-                        <a asp-action="Edit" asp-route-id="@item.id_Propiedad" class="btn btn-sm btn-warning">Editar</a>
-                        <a asp-action="Details" asp-route-id="@item.id_Propiedad" class="btn btn-sm btn-info">Detalles</a>
-                        <a asp-action="Delete" asp-route-id="@item.id_Propiedad" class="btn btn-sm btn-danger">Eliminar</a>
-                    </div>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
->>>>>>> 819df21461be7bd76b98b2a5db9783ab93eaceb0

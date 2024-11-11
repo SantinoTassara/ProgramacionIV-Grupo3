@@ -3,7 +3,6 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<<<<<<< HEAD
     <title>Inicio</title> <!-- Título cambiado a "INICIO" -->
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
@@ -60,21 +59,10 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm">
-=======
-    <title>@ViewData["Title"] Pepe Alquileres</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/LogicaAlquileres.WEB.styles.css" asp-append-version="true" />
-</head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
->>>>>>> 819df21461be7bd76b98b2a5db9783ab93eaceb0
             <div class="container-fluid">
                 @* Muestra el enlace de la marca y los botones sólo si el usuario está autenticado *@
                 @if (User.Identity.IsAuthenticated)
                 {
-<<<<<<< HEAD
                     <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a> <!-- Cambiado a "INICIO" -->
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
@@ -102,35 +90,6 @@
                             </li>
                         </ul>
                     </div>
-=======
-                        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">PepeAlquileres</a>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                                aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                            <ul class="navbar-nav flex-grow-1">
-                            @* Verifica si el usuario es Administrador y muestra el botón de Propiedades *@
-                            @if (User.IsInRole("Administrador"))
-                            {
-                                        <li class="nav-item">
-                                            <a class="nav-link text-dark" asp-area="" asp-controller="Propiedad" asp-action="Index">Propiedades</a>
-                                        </li>
-                            }
-                            @* Muestra el botón Alquileres para todos los usuarios *@
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Alquiler" asp-action="Index">Alquileres</a>
-                                </li>
-                            </ul>
-
-                        @* Botón de Cerrar Sesión en la esquina derecha *@
-                            <ul class="navbar-nav">
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-controller="Login" asp-action="Logout">Cerrar Sesión</a>
-                                </li>
-                            </ul>
-                        </div>
->>>>>>> 819df21461be7bd76b98b2a5db9783ab93eaceb0
                 }
             </div>
         </nav>
@@ -141,16 +100,7 @@
         </main>
     </div>
 
-<<<<<<< HEAD
     <!-- Agregar jQuery desde CDN (dependencia de DataTables) -->
-=======
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - Pepe Alquileres Derechos Reservados - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-     <!-- Agregar jQuery desde CDN (dependencia de DataTables) -->
->>>>>>> 819df21461be7bd76b98b2a5db9783ab93eaceb0
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- Agregar el JavaScript de DataTables desde CDN -->
