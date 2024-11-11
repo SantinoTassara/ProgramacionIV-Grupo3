@@ -17,6 +17,7 @@ namespace LogicaAlquileres.Managers
         int CrearPropiedad(Propiedad propiedad/*, int IdUsuarioAlta*/);
         bool ModificarPropiedad(int IdPropiedad, Propiedad propiedad/*, int IdUsuarioModificacion*/);
         bool EliminarPropiedad(int IdPropiedad/*, int IdUsuarioBaja*/);
+        IEnumerable<Propiedad> GetPropiedadesDisponibles();
     }
 
     
@@ -86,6 +87,11 @@ namespace LogicaAlquileres.Managers
             var cont = _repo.ModificarPropiedad(IdPropiedad, propiedadEnDb);
 
             return cont;
+        }
+        public IEnumerable<Propiedad> GetPropiedadesDisponibles()
+        {
+            // Llamar al repositorio para obtener las propiedades con estado "Disponible"
+            return _repo.GetPropiedades().Where(p => p.estado_Propiedad == "Disponible");
         }
     }
 }

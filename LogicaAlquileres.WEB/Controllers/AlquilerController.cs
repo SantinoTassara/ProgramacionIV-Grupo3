@@ -13,18 +13,21 @@ namespace LogicaAlquileres.WEB.Controllers
             _propiedadManager = propiedadManager;
         }
 
+        // Acción que muestra las propiedades disponibles para alquiler
         [Authorize(Roles = "Usuario, Administrador")]  // Lo ven ambos
         public IActionResult Index()
         {
-            // Obtener las propiedades (las mismas que en el controlador Propiedad)
-            var propiedades = _propiedadManager.GetPropiedades();
+            // Obtener las propiedades solo disponibles
+            var propiedadesDisponibles = _propiedadManager.GetPropiedadesDisponibles();
 
             // Devolverlas a la vista
-            return View(propiedades);
+            return View(propiedadesDisponibles);
         }
+
+        // Acción para alquilar una propiedad
         public ActionResult Alquilar(int id)
         {
-            // Puedes obtener la propiedad por ID u otros parámetros si es necesario
+            // Obtener la propiedad por ID
             var propiedad = _propiedadManager.GetPropiedad(id);
 
             if (propiedad == null)
@@ -32,12 +35,12 @@ namespace LogicaAlquileres.WEB.Controllers
                 return NotFound(); // Si no se encuentra la propiedad, redirigir a la página de error o a la lista
             }
 
-            // Puedes pasar el modelo de la propiedad a la vista
+            // Pasar el modelo de la propiedad a la vista
             return View(propiedad);
         }
 
-        // Acción que maneja la solicitud de ver los detalles de una propiedad
-        [Authorize(Roles = "Usuario, Administrador")] // Ambos roles lo pueden ver
+        // Acción para ver los detalles de una propiedad
+        [Authorize(Roles = "Usuario, Administrador")] // Ambos roles pueden ver los detalles
         public IActionResult Details(int id)
         {
             // Obtener la propiedad desde el manager
@@ -51,8 +54,6 @@ namespace LogicaAlquileres.WEB.Controllers
 
             // Pasamos la propiedad directamente a la vista
             return View(propiedad);
-
-
         }
     }
 }

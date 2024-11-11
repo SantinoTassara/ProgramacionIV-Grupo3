@@ -1,4 +1,4 @@
-﻿@model IEnumerable<LogicaAlquileres.Managers.ModelFactories.PropiedadCompleto>
+﻿@model IEnumerable<LogicaAlquileres.Managers.Entidades.Propiedad>
 
 @{
     ViewData["Title"] = "Alquileres Disponibles";
@@ -16,7 +16,7 @@ else
     <table id="alquileresTable" class="table">
         <thead>
             <tr>
-                <th>@Html.DisplayNameFor(model => model.id_Propiedad)</th>
+                @* <th>@Html.DisplayNameFor(model => model.id_Propiedad)</th> *@
                 <th>@Html.DisplayNameFor(model => model.nombre_Propiedad)</th>
                 <th>@Html.DisplayNameFor(model => model.direccion_Propiedad)</th>
                 <th>@Html.DisplayNameFor(model => model.estado_Propiedad)</th>
@@ -29,7 +29,7 @@ else
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>@Html.DisplayFor(modelItem => item.id_Propiedad)</td>
+                    @* <td>@Html.DisplayFor(modelItem => item.id_Propiedad)</td> *@
                     <td>@Html.DisplayFor(modelItem => item.nombre_Propiedad)</td>
                     <td>@Html.DisplayFor(modelItem => item.direccion_Propiedad)</td>
                     <td>@Html.DisplayFor(modelItem => item.estado_Propiedad)</td>
