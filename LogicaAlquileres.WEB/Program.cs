@@ -59,7 +59,7 @@ builder.Services.AddAuthentication(options =>
                 //Borrado = false,
                 email_Usuario = email,
                 //IdUsuarioAlta = 1,
-                fechaAlta_Propiedad = DateTime.Now
+               
             };
             idUsuario = usuarioServicio.CrearUsuario(usuarioNuevo);
         }

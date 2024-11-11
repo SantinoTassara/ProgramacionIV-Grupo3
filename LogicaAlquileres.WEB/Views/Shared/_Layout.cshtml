@@ -57,9 +57,33 @@
             &copy; 2024 - LogicaAlquileres.WEB - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+     <!-- Agregar jQuery desde CDN (dependencia de DataTables) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Agregar el JavaScript de DataTables desde CDN -->
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @* Renderizar los scripts específicos de la vista actual *@
     @await RenderSectionAsync("Scripts", required: false)
+
+    <!-- Inicialización de DataTables -->
+    <script>
+        $(document).ready(function () {
+            // Solo inicializar DataTables si la tabla existe
+            if ($('#propiedadTable').length) {
+                $('#propiedadTable').DataTable({
+                    paging: true,
+                    searching: true,
+                    ordering: true,
+                    language: {
+                        url: 'https://cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json' // Configuración en español
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>

@@ -1,0 +1,26 @@
+﻿@model LogicaAlquileres.Managers.Entidades.Propiedad
+
+<h1>Detalles de la Propiedad</h1>
+
+<div class="property-details">
+    <h2>@Model.nombre_Propiedad</h2>
+
+    <p><strong>Dirección:</strong> @Model.direccion_Propiedad</p>
+    <p><strong>Estado:</strong> @Model.estado_Propiedad</p>
+    <p><strong>Precio:</strong> $@Model.precio_Propiedad.ToString("0.00")</p>
+    <p><strong>Descripción:</strong> @Model.descripcion_Propiedad</p>
+
+    <p><strong>Fecha de Alta:</strong> @Model.fechaAlta_Propiedad.ToString("dd/MM/yyyy")</p>
+    <p><strong>Fecha de Baja:</strong> @Model.fechaBaja_Propiedad.ToString("dd/MM/yyyy")</p>
+    <p><strong>Última Modificación:</strong> @Model.fechaModificacion_Propiedad.ToString("dd/MM/yyyy")</p>
+</div>
+
+<!-- Enlace para volver a la lista de propiedades -->
+<div>
+    <a href="@Url.Action("Index", "Alquiler")" class="btn btn-secondary">Volver a la lista de propiedades en alquiler</a>
+</div>
+
+<!-- Botón "Alquilar" redirigiendo al controlador Alquiler -->
+<div class="mt-3">
+    <a href="@Url.Action("Alquilar", "Alquiler", new { id = Model.id_Propiedad })" class="btn btn-primary">Alquilar</a>
+</div>
