@@ -75,11 +75,6 @@ namespace LogicaAlquileres.WEB.Controllers
             {
                 Propiedad propiedad = new Propiedad
                 {
-                    //hay q ver si entran todos, id alquiler e id usuario
-                    //id_Propiedad = int.Parse(collection["model.id_Propiedad=3"]),
-                    //id_Propiedad = int.Parse(collection["model.id_Propiedad"]),
-                    //id_Usuario_Propiedad = int.Parse(collection["model.id_Usuario_Propiedad"]),
-                    //id_Alquiler = int.Parse(collection["model.id_Alquiler"]),
                     direccion_Propiedad = collection["model.direccion_Propiedad"],
                     estado_Propiedad = collection["model.estado_Propiedad"],
                     precio_Propiedad = decimal.Parse(collection["model.precio_Propiedad"]),
@@ -194,14 +189,6 @@ namespace LogicaAlquileres.WEB.Controllers
                 return View(); // Vuelve a mostrar la vista de eliminación
             }
         }
-
-        //private int GetUserIdentityId()
-        //{
-        //    //return int.Parse(HttpContext.User.Claims.First(x => x.Type == "usuarioPropiedad").Value);
-        //    var claim = HttpContext.User.Claims.FirstOrDefault(x => x.Type == "usuarioPropiedad");
-        //    if (claim == null) throw new Exception("Claim 'usuarioPropiedad' no encontrado.");
-        //    return int.Parse(claim.Value);
-        //}
 
     }
 }

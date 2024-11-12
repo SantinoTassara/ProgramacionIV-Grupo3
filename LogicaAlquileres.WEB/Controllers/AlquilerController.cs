@@ -1,6 +1,7 @@
 ﻿using System.Security.Claims;
 using LogicaAlquileres.Managers;
 using LogicaAlquileres.Managers.Entidades;
+using LogicaAlquileres.Managers.Repos;
 using LogicaAlquileres.Repos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,12 +13,13 @@ namespace LogicaAlquileres.WEB.Controllers
         private readonly IPropiedadManager _propiedadManager;
         private readonly IAlquilerRepository _alquilerRepository;
         private readonly IPropiedadRepository _propiedadRepository;
-
-        public AlquilerController(IPropiedadManager propiedadManager, IAlquilerRepository alquilerRepository, IPropiedadRepository propiedadRepository)
+        private readonly IUsuarioRepository _usuarioRepository;
+        public AlquilerController(IPropiedadManager propiedadManager, IAlquilerRepository alquilerRepository, IPropiedadRepository propiedadRepository, IUsuarioRepository usuarioRepository)
         {
             _propiedadManager = propiedadManager;
             _alquilerRepository = alquilerRepository;
             _propiedadRepository = propiedadRepository;
+            _usuarioRepository = usuarioRepository;
         }
 
         // Acción que muestra las propiedades disponibles para alquiler
@@ -35,14 +37,30 @@ namespace LogicaAlquileres.WEB.Controllers
         public ActionResult Alquilar(int id)
         {
             // Obtener el ID del usuario autenticado
-            int idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            //int idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            int idUsuario;
 
-            Console.WriteLine("ID de usuario: " + idUsuario);
+            // Verificar si el NameIdentifier es numérico
+            if (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out idUsuario))
+            {
+                // Si es numérico, continuar normalmente
+            }
+            else
+            {
+                // Si no es numérico (es un usuario de Google), buscar el id_usuario en la base de datos
+                var googleId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var usuario = _usuarioRepository.GetUsuarioPorGoogleSubject(googleId);
+                if (usuario == null)
+                {
+                    // Manejar el caso donde el usuario no se encuentra
+                    return Unauthorized();
+                }
+                idUsuario = usuario.id_usuario;
+            }
+
 
             // Obtener los detalles de la propiedad
             var propiedad = _propiedadRepository.GetPropiedad(id);
-
-            Console.WriteLine("Propiedad obtenida: " + (propiedad != null ? propiedad.id_Propiedad.ToString() : "null"));
 
             // Crear el alquiler en la tabla, incluyendo id_Propiedad y nombre_Propiedad
             int idAlquiler = _alquilerRepository.CrearAlquiler(
@@ -61,7 +79,6 @@ namespace LogicaAlquileres.WEB.Controllers
             if (idAlquiler > 0)
             {
                 _alquilerRepository.ActualizarEstadoPropiedad(propiedad.id_Propiedad, "Ocupado");
-                Console.WriteLine("Estado de la propiedad actualizado a Ocupado.");
             }
 
             return RedirectToAction("MisAlquileres");
@@ -85,7 +102,28 @@ namespace LogicaAlquileres.WEB.Controllers
         public IActionResult MisAlquileres()
         {
             // Obtener el ID del usuario autenticado
-            int idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            //int idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            int idUsuario;
+
+            // Verificar si el NameIdentifier es numérico
+            if (int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out idUsuario))
+            {
+                // Si es numérico, continuar normalmente
+            }
+            else
+            {
+                // Si no es numérico (es un usuario de Google), buscar el id_usuario en la base de datos
+                var googleId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var usuario = _usuarioRepository.GetUsuarioPorGoogleSubject(googleId);
+                if (usuario == null)
+                {
+                    // Manejar el caso donde el usuario no se encuentra
+                    return Unauthorized();
+                }
+                idUsuario = usuario.id_usuario;
+            }
+
+
             IEnumerable<Alquiler> alquileres;
             // Verificar si el usuario es un administrador
             if (User.IsInRole("Administrador"))

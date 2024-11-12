@@ -73,7 +73,10 @@ builder.Services.AddAuthentication(options =>
         //ctx.Identity.AddClaim(new Claim("UNLZRole", role));
         ctx.Identity.AddClaim(new Claim(ClaimTypes.Role, role));
         //ctx.Identity.AddClaim(new Claim("usuarioContainer", idUsuario.ToString()));
+       /* ctx.Identity.RemoveClaim(ctx.Identity.FindFirst(ClaimTypes.NameIdentifier));*/ // Eliminar el NameIdentifier existente, si existe
         ctx.Identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, idUsuario.ToString()));
+        
+        
 
 
         await Task.CompletedTask;
