@@ -81,6 +81,13 @@ builder.Services.AddAuthentication(options =>
 
         await Task.CompletedTask;
     };
+    opciones.Events.OnRemoteFailure = context =>
+    {
+        Console.WriteLine($"Error de autenticación: {context.Failure.Message}");
+        context.Response.Redirect("/Login/Index"); // Redirigir al login o a una página de error personalizada
+        context.HandleResponse(); // Detiene el procesamiento adicional
+        return Task.CompletedTask;
+    };
 });
 
 var app = builder.Build();
